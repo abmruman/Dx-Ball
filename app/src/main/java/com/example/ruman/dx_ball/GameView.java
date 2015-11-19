@@ -11,11 +11,12 @@ import android.view.View;
  */
 public class GameView extends View{
     Paint paint;
-    float x, y;
-    int batHeight=10, batWidth=20, ballRadius=20;
+    float paddleX, paddleY, ballX, ballY;
+    int paddleHeight = 50, paddleWidth = 400, ballRadius = 20;
     boolean gameStarted = false;
     public GameView(Context context) {
         super(context);
+
         paint = new Paint();
     }
 
@@ -24,16 +25,25 @@ public class GameView extends View{
         super.onDraw(canvas);
         if(!gameStarted){
             gameStarted = true;
-            x=canvas.getWidth()/2;
-            y=canvas.getHeight()-ballRadius;
+            paddleX = canvas.getWidth() / 2;
+            paddleY = canvas.getHeight();
+            ballX = canvas.getWidth() / 2;
+            ballY = canvas.getHeight() - paddleHeight - ballRadius;
         }
-        canvas.drawRGB(0,0,0);
         paint.setColor(Color.WHITE);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(x,y,ballRadius,paint);
+        canvas.drawRGB(0, 0, 0);
+        drawBar(canvas);
+        drawBall(canvas);
     }
 
-    private void drawBat(){
+    private void drawBar(Canvas canvas) {
+        float x = paddleX, y = paddleY;
+        canvas.drawRect(x -= paddleWidth / 2, y -= paddleHeight, x + paddleWidth, y + paddleHeight, paint);
+    }
 
+    private void drawBall(Canvas canvas) {
+
+        canvas.drawCircle(ballX, ballY, ballRadius, paint);
     }
 }
