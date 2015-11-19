@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.example.ruman.dx_ball"
+        applicationId "com.androidApps.ruman.dx_ball"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1

@@ -1,4 +1,4 @@
-package com.example.ruman.dx_ball;
+package com.androidApps.ruman.dx_ball;
 
 import android.app.Activity;
 import android.os.Bundle;

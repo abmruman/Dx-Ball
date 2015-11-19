@@ -1,4 +1,4 @@
-package com.example.ruman.dx_ball;
+package com.androidApps.ruman.dx_ball;
 
 import android.content.Context;
 import android.graphics.Canvas;
