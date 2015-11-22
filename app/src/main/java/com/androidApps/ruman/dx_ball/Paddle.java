@@ -34,8 +34,13 @@ public class Paddle {
 
     public void move(float x) {
         if (this.x > x)
-            this.x -= 5;
+            this.x -= 10;
         else
-            this.x += 5;
+            this.x += 10;
     }
+
+    public boolean collision(float x, float y, int size) {
+        return this.x + width / 2 >= x && this.x - width / 2 <= x && this.y - height <= y + size;
+    }
+
 }

@@ -7,8 +7,8 @@ import android.view.MotionEvent;
  */
 public class DxBall {
     boolean started;
-    private Paddle paddle;
-    private Ball ball;
+    Paddle paddle;
+    Ball ball;
 
     public DxBall() {
         started = false;
@@ -49,7 +49,7 @@ public class DxBall {
                 paddle.move(x);
                 if (!ball.isOnAir) {
                     ball.isOnAir = true;
-                    ball.bounce(1, 1);
+                    ball.bounce(-5, -5);
                 }
         }
         return true;

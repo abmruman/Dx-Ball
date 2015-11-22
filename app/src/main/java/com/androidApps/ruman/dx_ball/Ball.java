@@ -20,11 +20,22 @@ public class Ball {
     }
 
     public void draw() {
-        if (isOnAir) {
-            x -= dx;
-            y -= dy;
-        }
+        calculateMove();
         Screen.canvas.drawCircle(x, y, radius, paint);
+    }
+
+    private void calculateMove() {
+        x += dx;
+        y += dy;
+        if (isOnAir) {
+            if (Wall.left(x, y, radius) || Wall.right(x, y, radius)) {
+                dx = -dx;
+            } else if (Wall.top(x, y, radius) || Game.dxBall.paddle.collision(x, y, radius)) {
+                dy = -dy;
+            }
+
+        }
+
     }
 
     public void setRadius() {
