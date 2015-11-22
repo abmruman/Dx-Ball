@@ -11,12 +11,15 @@ import android.view.View;
  */
 public class GameView extends View{
     Paint paint;
-    float paddleX, paddleY, ballX, ballY, paddleRatioX = 400 / 1920f, paddleRatioY = 50 / 1200f;
-    int width, height, paddleHeight, paddleWidth, ballRadius = 30;
-    boolean gameStarted = false;
+    float paddleX, paddleY, ballX, ballY, paddleRatioX, paddleRatioY, radiusRatio;
+    int width, height, paddleHeight, paddleWidth, ballRadius;
+    boolean gameStarted;
     public GameView(Context context) {
         super(context);
-
+        gameStarted = false;
+        paddleRatioX = 400 / 1600f;
+        paddleRatioY = 50 / 1200f;
+        radiusRatio = 25 / 1200f;
         paint = new Paint();
     }
 
@@ -27,6 +30,8 @@ public class GameView extends View{
         width = canvas.getWidth();
         paddleHeight = (int) (paddleRatioY * height);
         paddleWidth = (int) (paddleRatioX * width);
+        ballRadius = (int) (radiusRatio * ((width < height) ? width : height));
+
         if(!gameStarted){
             gameStarted = true;
             paddleX = width / 2;

@@ -15,7 +15,6 @@ public class MainActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setFullScreen();
         setContentView(gameView);
-
     }
 
     @Override
