@@ -8,9 +8,11 @@ import android.view.WindowManager;
 
 public class MainActivity extends Activity {
     GameView gameView;
+    DxBall dxBall;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dxBall = new DxBall();
         gameView = new GameView(this);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setFullScreen();
