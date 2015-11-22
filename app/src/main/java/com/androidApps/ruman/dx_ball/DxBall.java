@@ -42,10 +42,15 @@ public class DxBall {
         float x = event.getX();
         //float y = event.getY();
         switch (event.getAction()) {
+            //TODO: Make paddle movement smooth.
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
             case MotionEvent.ACTION_UP:
                 paddle.move(x);
+                if (!ball.isOnAir) {
+                    ball.isOnAir = true;
+                    ball.bounce(1, 1);
+                }
         }
         return true;
     }

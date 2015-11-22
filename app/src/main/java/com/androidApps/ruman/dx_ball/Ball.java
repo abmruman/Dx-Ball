@@ -9,14 +9,21 @@ import android.graphics.Paint;
 public class Ball {
     Paint paint;
     float x, y, radiusRatio;
-    int radius;
+    int radius, dx, dy;
+    boolean isOnAir;
 
     public Ball() {
+        dx = dy = 0;
+        isOnAir = false;
         paint = Screen.newPaint(Color.WHITE, Paint.Style.FILL);
         radiusRatio = 25 / 1200f;
     }
 
     public void draw() {
+        if (isOnAir) {
+            x -= dx;
+            y -= dy;
+        }
         Screen.canvas.drawCircle(x, y, radius, paint);
     }
 
@@ -27,5 +34,10 @@ public class Ball {
     public void setInitialPosition(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public void bounce(int dx, int dy) {
+        this.dx = dx;
+        this.dy = dy;
     }
 }
