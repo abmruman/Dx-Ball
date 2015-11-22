@@ -1,5 +1,7 @@
 package com.androidApps.ruman.dx_ball;
 
+import android.view.MotionEvent;
+
 /**
  * Created by A B M Ruman on 22/11/2015.
  */
@@ -34,5 +36,17 @@ public class DxBall {
     public void draw() {
         paddle.draw();
         ball.draw();
+    }
+
+    public boolean onTouchEvent(MotionEvent event) {
+        float x = event.getX();
+        //float y = event.getY();
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_UP:
+                paddle.move(x);
+        }
+        return true;
     }
 }

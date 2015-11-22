@@ -31,4 +31,11 @@ public class Paddle {
         this.x = x;
         this.y = y;
     }
+
+    public void move(float x) {
+        if (this.x > x)
+            this.x -= 5;
+        else
+            this.x += 5;
+    }
 }

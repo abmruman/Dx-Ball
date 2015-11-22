@@ -16,12 +16,13 @@ public class MainActivity extends Activity {
         this.getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Game.gameView.setFullScreen();
         AddListeners();
         setContentView(Game.gameView);
     }
 
     private void AddListeners() {
-
+        Game.gameView.setLongClickable(true);
     }
 
     @Override

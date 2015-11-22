@@ -2,6 +2,7 @@ package com.androidApps.ruman.dx_ball;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -22,6 +23,12 @@ public class GameView extends View{
         }
         canvas.drawRGB(0, 0, 0);
         Game.dxBall.draw();
+        invalidate();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return Game.dxBall.onTouchEvent(event);
     }
 
     @Override
