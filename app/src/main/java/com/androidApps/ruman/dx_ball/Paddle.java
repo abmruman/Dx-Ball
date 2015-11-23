@@ -42,14 +42,14 @@ public class Paddle {
     }
 
     public boolean collisionTop(float x, float y, int size) {
-        return right >= x && left <= x && top <= y + size;
+        return right >= x && left <= x && top <= y + size && bottom >= y;
     }
 
     public boolean collisionSide(float x, float y, int size) {
         return ((right <= x && right >= x - size)
                 || (left >= x && left <= x + size)
         )
-                && top <= y + size;
+                && top <= y + size && bottom > y;
     }
 
     public void setX(float x) {

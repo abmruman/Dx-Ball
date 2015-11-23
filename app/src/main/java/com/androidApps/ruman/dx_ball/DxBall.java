@@ -24,7 +24,7 @@ public class DxBall {
 
     private void setInitialPosition() {
         int x = Screen.width, y = Screen.height;
-        paddle.setInitialPosition(x /= 2, y);
+        paddle.setInitialPosition(x /= 2, y -= paddle.height);
         ball.setInitialPosition(x, y - paddle.height - ball.radius);
     }
 
