@@ -1,6 +1,8 @@
 package com.androidApps.ruman.dx_ball;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.View;
@@ -9,8 +11,10 @@ import android.view.View;
  * Created by A B M Ruman on 18/11/2015.
  */
 public class GameView extends View{
+    Activity activity;
     public GameView(Context context) {
         super(context);
+        this.activity = (Activity) context;
     }
 
     @Override
@@ -20,6 +24,10 @@ public class GameView extends View{
         if (!Game.dxBall.started) {
             Game.dxBall.started = true;
             Game.dxBall.newGame();
+            if (Screen.height > Screen.width)
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+            else
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         }
         canvas.drawRGB(0, 0, 0);
         Game.dxBall.draw();
