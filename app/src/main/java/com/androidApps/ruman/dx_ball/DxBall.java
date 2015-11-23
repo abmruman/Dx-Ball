@@ -34,6 +34,12 @@ public class DxBall {
     }
 
     public void draw() {
+        if (ball.fallen) {
+            ball.fallen = false;
+            ball.isOnAir = false;
+            setInitialPosition();
+            //ball.bounce(5,-5);
+        }
         paddle.draw();
         ball.draw();
     }

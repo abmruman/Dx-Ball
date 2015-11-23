@@ -11,10 +11,11 @@ public class Ball {
     float x, y, radiusRatio;
     int radius, dx, dy;
     boolean isOnAir;
-
+    boolean fallen;
     public Ball() {
         dx = dy = 0;
         isOnAir = false;
+        fallen = false;
         paint = Screen.newPaint(Color.WHITE, Paint.Style.FILL);
         radiusRatio = 25 / 1200f;
     }
@@ -25,13 +26,16 @@ public class Ball {
     }
 
     private void calculateMove() {
-        x += dx;
-        y += dy;
         if (isOnAir) {
-            if (Wall.left(x, y, radius) || Wall.right(x, y, radius)) {
+            x += dx;
+            y += dy;
+            if (Wall.hitLeft(x, y, radius) || Wall.hitRight(x, y, radius)) {
                 dx = -dx;
-            } else if (Wall.top(x, y, radius) || Game.dxBall.paddle.collision(x, y, radius)) {
+            } else if (Wall.hitTop(x, y, radius) || Game.dxBall.paddle.collision(x, y, radius)) {
                 dy = -dy;
+            } else if (Wall.hitDown(x, y, radius)) {
+                fallen = true;
+                isOnAir = false;
             }
 
         }

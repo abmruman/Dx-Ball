@@ -33,14 +33,16 @@ public class Paddle {
     }
 
     public void move(float x) {
-        if (this.x > x)
+        if (this.x > x && !Wall.hitLeft(this.x, this.y, width / 2 - 5))
             this.x -= 10;
-        else
+        else if (this.x < x && !Wall.hitRight(this.x, this.y, width / 2 + 5))
             this.x += 10;
     }
 
     public boolean collision(float x, float y, int size) {
         return this.x + width / 2 >= x && this.x - width / 2 <= x && this.y - height <= y + size;
     }
+
+    //TODO: Add method to handle the paddle-ball side collision.
 
 }
