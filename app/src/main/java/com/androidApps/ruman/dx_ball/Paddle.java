@@ -41,8 +41,15 @@ public class Paddle {
             setX(this.x + 10);
     }
 
-    public boolean collision(float x, float y, int size) {
+    public boolean collisionTop(float x, float y, int size) {
         return right >= x && left <= x && top <= y + size;
+    }
+
+    public boolean collisionSide(float x, float y, int size) {
+        return ((right <= x && right >= x + size)
+                || (left >= x && left <= x + size)
+        )
+                && top <= y + size;
     }
 
     public void setX(float x) {
@@ -56,7 +63,5 @@ public class Paddle {
         right = left + width;
         bottom = top + height;
     }
-
-    //TODO: Add method to handle the paddle-ball side collision.
 
 }
