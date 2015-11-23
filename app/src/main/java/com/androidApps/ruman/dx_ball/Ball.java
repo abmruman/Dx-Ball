@@ -31,7 +31,10 @@ public class Ball {
             y += dy;
             if (Wall.hitLeft(x, y, radius) || Wall.hitRight(x, y, radius)) {
                 dx = -dx;
-            } else if (Wall.hitTop(x, y, radius) || Game.dxBall.paddle.collision(x, y, radius)) {
+            } else if (Wall.hitTop(x, y, radius) || Game.dxBall.paddle.collisionTop(x, y, radius)) {
+                dy = -dy;
+            } else if (Game.dxBall.paddle.collisionSide(x, y, radius)) {
+                dx = -dx;
                 dy = -dy;
             } else if (Wall.hitDown(x, y, radius)) {
                 fallen = true;
