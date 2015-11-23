@@ -42,7 +42,7 @@ public class Paddle {
     }
 
     public boolean collision(float x, float y, int size) {
-        return this.x + width / 2 >= x && this.x - width / 2 <= x && this.y - height <= y + size;
+        return right >= x && left <= x && top <= y + size;
     }
 
     public void setX(float x) {
@@ -51,11 +51,10 @@ public class Paddle {
     }
 
     private void calculateCorners() {
-        float x = this.x, y = this.y;
-        left = x -= width / 2;
-        top = y -= height;
-        right = x + width;
-        bottom = y + height;
+        left = x - width / 2;
+        top = y - height;
+        right = left + width;
+        bottom = top + height;
     }
 
     //TODO: Add method to handle the paddle-ball side collision.

@@ -1,7 +1,6 @@
 package com.androidApps.ruman.dx_ball;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 
 /**
@@ -18,10 +17,10 @@ public class Screen {
         Screen.width = canvas.getWidth();
     }
 
-    public static Paint newPaint(int white, Paint.Style fill) {
+    public static Paint newPaint(int color, Paint.Style style) {
         Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(color);
+        paint.setStyle(style);
         return paint;
     }
 }
