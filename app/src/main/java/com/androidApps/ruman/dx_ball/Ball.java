@@ -8,10 +8,10 @@ import android.graphics.Paint;
  */
 public class Ball {
     Paint paint;
-    float x, y, radiusRatio;
-    int radius, dx, dy;
     boolean isOnAir;
     boolean fallen;
+    private float x, y, radiusRatio;
+    private int radius, dx, dy;
     public Ball() {
         dx = dy = 0;
         isOnAir = false;
@@ -22,12 +22,12 @@ public class Ball {
 
     public void draw() {
         calculateMove();
-        Screen.canvas.drawCircle(x, y, radius, paint);
+        Screen.getCanvas().drawCircle(x, y, radius, paint);
     }
 
     private void calculateMove() {
         if (!isOnAir && Game.dxBall.paddle.isMovable) {
-            x = Game.dxBall.paddle.x;
+            x = Game.dxBall.paddle.getX();
         }
         if (isOnAir) {
             x += dx;
@@ -49,7 +49,7 @@ public class Ball {
     }
 
     public void setRadius() {
-        radius = (int) (radiusRatio * ((Screen.width < Screen.height) ? Screen.width : Screen.height));
+        radius = (int) (radiusRatio * ((Screen.getWidth() < Screen.getHeight()) ? Screen.getWidth() : Screen.getHeight()));
     }
 
     public void setInitialPosition(int x, int y) {
@@ -60,5 +60,9 @@ public class Ball {
     public void bounce(int dx, int dy) {
         this.dx = dx;
         this.dy = dy;
+    }
+
+    public int getRadius() {
+        return radius;
     }
 }

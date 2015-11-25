@@ -9,14 +9,14 @@ public class Wall {
     }
 
     static boolean hitRight(float x, float y, int size) {
-        return x + size >= Screen.width;
+        return x + size >= Screen.getWidth();
     }
 
     static boolean hitTop(float x, float y, int size) {
         return y - size <= 0;
     }
 
-    public static boolean hitDown(float x, float y, int radius) {
-        return y + radius >= Screen.height;
+    public static boolean hitDown(float x, float y, int size) {
+        return y + size >= Screen.getHeight();
     }
 }

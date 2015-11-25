@@ -11,7 +11,7 @@ import android.view.View;
  * Created by A B M Ruman on 18/11/2015.
  */
 public class GameView extends View{
-    Activity activity;
+    private Activity activity;
     public GameView(Context context) {
         super(context);
         this.activity = (Activity) context;
@@ -24,7 +24,7 @@ public class GameView extends View{
         if (!Game.dxBall.started) {
             Game.dxBall.started = true;
             Game.dxBall.newGame();
-            if (Screen.height > Screen.width)
+            if (Screen.getHeight() > Screen.getWidth())
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
             else
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -48,7 +48,7 @@ public class GameView extends View{
     }
 
     public void setFullScreen() {
-        Game.gameView.setSystemUiVisibility(
+        this.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN

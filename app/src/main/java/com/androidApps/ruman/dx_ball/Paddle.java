@@ -9,8 +9,8 @@ import android.graphics.Paint;
 public class Paddle {
     public boolean isMovable;
     Paint paint;
-    float x, y, heightRatio, widthRatio, left, top, right, bottom;
-    int height, width;
+    private float x, y, heightRatio, widthRatio, left, top, right, bottom;
+    private int height, width;
 
     public Paddle() {
         paint = Screen.newPaint(Color.WHITE, Paint.Style.FILL);
@@ -20,7 +20,7 @@ public class Paddle {
 
     public void draw() {
         calculateMove();
-        Screen.canvas.drawRect(left, top, right, bottom, paint);
+        Screen.getCanvas().drawRect(left, top, right, bottom, paint);
     }
 
     private void calculateMove() {
@@ -33,8 +33,8 @@ public class Paddle {
     }
 
     public void setDimension() {
-        height = (int) (widthRatio * Screen.height);
-        width = (int) (heightRatio * Screen.width);
+        height = (int) (widthRatio * Screen.getHeight());
+        width = (int) (heightRatio * Screen.getWidth());
     }
 
     public void setInitialPosition(int x, int y) {
@@ -56,6 +56,10 @@ public class Paddle {
                 && top <= y + size && bottom > y;
     }
 
+    public float getX() {
+        return x;
+    }
+
     public void setX(float x) {
         this.x = x;
         calculateCorners();
@@ -68,4 +72,7 @@ public class Paddle {
         bottom = top + height;
     }
 
+    public int getHeight() {
+        return height;
+    }
 }

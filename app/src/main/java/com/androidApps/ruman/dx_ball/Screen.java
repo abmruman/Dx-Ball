@@ -7,9 +7,21 @@ import android.graphics.Paint;
  * Created by A B M Ruman on 22/11/2015.
  */
 public class Screen {
-    public static Canvas canvas;
-    public static int height;
-    public static int width;
+    private static Canvas canvas;
+    private static int height;
+    private static int width;
+
+    public static int getHeight() {
+        return height;
+    }
+
+    public static int getWidth() {
+        return width;
+    }
+
+    public static Canvas getCanvas() {
+        return canvas;
+    }
 
     public static void setCanvas(Canvas canvas) {
         Screen.canvas = canvas;
@@ -23,4 +35,5 @@ public class Screen {
         paint.setStyle(style);
         return paint;
     }
+
 }
