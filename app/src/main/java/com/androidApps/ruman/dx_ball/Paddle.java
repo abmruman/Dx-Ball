@@ -7,6 +7,7 @@ import android.graphics.Paint;
  * Created by A B M Ruman on 22/11/2015.
  */
 public class Paddle {
+    public boolean isMovable;
     Paint paint;
     float x, y, heightRatio, widthRatio, left, top, right, bottom;
     int height, width;
@@ -18,7 +19,17 @@ public class Paddle {
     }
 
     public void draw() {
+        calculateMove();
         Screen.canvas.drawRect(left, top, right, bottom, paint);
+    }
+
+    private void calculateMove() {
+        if (isMovable) {
+            if (this.x > Mouse.x && !Wall.hitLeft(this.x, this.y, width / 2 - 5))
+                setX(this.x - 10);
+            else if (this.x < Mouse.x && !Wall.hitRight(this.x, this.y, width / 2 + 5))
+                setX(this.x + 10);
+        }
     }
 
     public void setDimension() {
@@ -32,13 +43,6 @@ public class Paddle {
          * works with value of y.**/
         this.y = y;
         setX(x);
-    }
-
-    public void move(float x) {
-        if (this.x > x && !Wall.hitLeft(this.x, this.y, width / 2 - 5))
-            setX(this.x - 10);
-        else if (this.x < x && !Wall.hitRight(this.x, this.y, width / 2 + 5))
-            setX(this.x + 10);
     }
 
     public boolean collisionTop(float x, float y, int size) {

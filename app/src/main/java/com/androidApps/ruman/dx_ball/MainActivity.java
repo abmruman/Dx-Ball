@@ -25,10 +25,4 @@ public class MainActivity extends Activity {
         Game.gameView.setLongClickable(true);
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-    }
-
-
 }

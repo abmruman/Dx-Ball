@@ -26,6 +26,9 @@ public class Ball {
     }
 
     private void calculateMove() {
+        if (!isOnAir && Game.dxBall.paddle.isMovable) {
+            x = Game.dxBall.paddle.x;
+        }
         if (isOnAir) {
             x += dx;
             y += dy;
