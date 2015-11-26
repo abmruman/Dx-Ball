@@ -34,14 +34,17 @@ public class Ball {
             y += dy;
             if (Wall.hitLeft(x, y, radius) || Wall.hitRight(x, y, radius)) {
                 dx = -dx;
-            } else if (Wall.hitTop(x, y, radius) || Game.dxBall.paddle.collisionTop(x, y, radius)) {
+            } else if (Wall.hitTop(x, y, radius)) {
                 dy = -dy;
+            } else if (Wall.hitDown(x, y, radius)) {
+                dx = dy = 0;
+                fallen = true;
+                isOnAir = false;
             } else if (Game.dxBall.paddle.collisionSide(x, y, radius)) {
                 dx = -dx;
                 dy = -dy;
-            } else if (Wall.hitDown(x, y, radius)) {
-                fallen = true;
-                isOnAir = false;
+            } else if (Game.dxBall.paddle.collisionTop(x, y, radius)) {
+                dy = (dy > 0) ? -dy : dy;
             }
 
         }

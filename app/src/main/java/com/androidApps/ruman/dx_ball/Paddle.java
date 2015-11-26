@@ -45,15 +45,18 @@ public class Paddle {
         setX(x);
     }
 
-    public boolean collisionTop(float x, float y, int size) {
-        return right >= x && left <= x && top <= y + size && bottom >= y;
+    public boolean collisionTop(float x, float y, int radius) {
+        return y < top
+                && y + radius >= top
+                && x >= left
+                && x <= right;
     }
 
-    public boolean collisionSide(float x, float y, int size) {
-        return ((right <= x && right >= x - size)
-                || (left >= x && left <= x + size)
+    public boolean collisionSide(float x, float y, int radius) {
+        return ((right <= x && right >= x - radius)
+                || (left >= x && left <= x + radius)
         )
-                && top <= y + size && bottom > y;
+                && top <= y + radius && bottom > y;
     }
 
     public float getX() {
