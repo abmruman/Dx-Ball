@@ -9,18 +9,21 @@ import android.graphics.Paint;
 public class Paddle {
     public boolean isMovable;
     Paint paint;
-    private float x, y, heightRatio, widthRatio, left, top, right, bottom;
-    private int height, width;
+    private float x, y, heightRatio, widthRatio, radiusRatio, left, top, right, bottom;
+    private int height, width, radius;
 
     public Paddle() {
         paint = Screen.newPaint(Color.WHITE, Paint.Style.FILL);
         heightRatio = 400 / 1600f;
         widthRatio = 50 / 1200f;
+        radiusRatio = 25 / 1200f;
     }
 
     public void draw() {
         calculateMove();
         Screen.getCanvas().drawRect(left, top, right, bottom, paint);
+        Screen.getCanvas().drawCircle(left, top + radius, radius, paint);
+        Screen.getCanvas().drawCircle(right, top + radius, radius, paint);
     }
 
     private void calculateMove() {
@@ -35,6 +38,7 @@ public class Paddle {
     public void setDimension() {
         height = (int) (widthRatio * Screen.getHeight());
         width = (int) (heightRatio * Screen.getWidth());
+        radius = (int) (radiusRatio * ((Screen.getWidth() < Screen.getHeight()) ? Screen.getWidth() : Screen.getHeight()));
     }
 
     public void setInitialPosition(int x, int y) {
