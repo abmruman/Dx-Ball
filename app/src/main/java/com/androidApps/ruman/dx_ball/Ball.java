@@ -26,10 +26,11 @@ public class Ball {
     }
 
     private void calculateMove() {
-        if (!isOnAir && Game.dxBall.paddle.isMovable) {
-            x = Game.dxBall.paddle.getX();
-        }
-        if (isOnAir) {
+        if (!isOnAir) {
+            if (Game.dxBall.paddle.isMovable) {
+                x = Game.dxBall.paddle.getX();
+            }
+        } else {
             x += dx;
             y += dy;
             if (Wall.hitLeft(x, y, radius) || Wall.hitRight(x, y, radius)) {
@@ -40,7 +41,9 @@ public class Ball {
                 dx = dy = 0;
                 fallen = true;
                 isOnAir = false;
-            } else if (Game.dxBall.paddle.collisionSide(x, y, radius)) {
+            }
+
+            if (Game.dxBall.paddle.collisionSide(x, y, radius)) {
                 dx = -dx;
                 dy = -dy;
             } else if (Game.dxBall.paddle.collisionTop(x, y, radius)) {

@@ -9,7 +9,7 @@ import android.graphics.Paint;
 public class Paddle {
     public boolean isMovable;
     Paint paint;
-    private float x, y, heightRatio, widthRatio, radiusRatio, left, top, right, bottom;
+    private float x, y, heightRatio, widthRatio, radiusRatio, left, top, right, bottom, leftSide, rightSide;
     private int height, width, radius;
 
     public Paddle() {
@@ -21,23 +21,23 @@ public class Paddle {
 
     public void draw() {
         calculateMove();
-        Screen.getCanvas().drawRect(left, top, right, bottom, paint);
         Screen.getCanvas().drawCircle(left, top + radius, radius, paint);
         Screen.getCanvas().drawCircle(right, top + radius, radius, paint);
+        Screen.getCanvas().drawRect(left, top, right, bottom, paint);
     }
 
     private void calculateMove() {
         if (isMovable) {
-            float movement = width / 2 + Mouse.dx;
+            float movement = width / 2 + radius + Mouse.dx;
             if (Mouse.dx > 0) {
                 if (Wall.hitRight(this.x, this.y, movement)) {
-                    setX(this.x + (Wall.getRight() - this.right));
+                    setX(this.x + (Wall.getRight() - this.right - radius));
                 } else {
                     setX(this.x + Mouse.dx);
                 }
             } else if (Mouse.dx < 0) {
                 if (Wall.hitLeft(this.x, this.y, movement)) {
-                    setX(this.x + (Wall.getLeft() - this.left));
+                    setX(this.x + (Wall.getLeft() - this.left + radius));
                 } else {
                     setX(this.x + Mouse.dx);
                 }
@@ -84,13 +84,15 @@ public class Paddle {
 
     private void calculateCorners() {
         left = x - width / 2;
-        if (left < 0) {
-            left = 0;
-            x = width / 2;
+        leftSide = left - radius;
+        if (leftSide < 0) {
+            left = radius;
+            x = width / 2 + radius;
         }
         top = y - height;
         right = left + width;
         bottom = top + height;
+        rightSide = right + radius;
     }
 
     public int getHeight() {
