@@ -27,6 +27,7 @@ public class Screen {
         Screen.canvas = canvas;
         Screen.height = canvas.getHeight();
         Screen.width = canvas.getWidth();
+        Wall.setWalls();
     }
 
     public static Paint newPaint(int color, Paint.Style style) {

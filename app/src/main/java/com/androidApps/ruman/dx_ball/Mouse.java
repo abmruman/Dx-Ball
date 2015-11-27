@@ -6,4 +6,6 @@ package com.androidApps.ruman.dx_ball;
 public class Mouse {
     public static float x;
     public static float y;
+    public static float dx;
+    public static float dy;
 }

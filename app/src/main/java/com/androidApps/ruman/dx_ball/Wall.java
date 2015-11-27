@@ -4,19 +4,45 @@ package com.androidApps.ruman.dx_ball;
  * Created by A B M Ruman on 23/11/2015.
  */
 public class Wall {
-    static boolean hitLeft(float x, float y, int size) {
-        return x - size <= 0;
+    private static int left, top, right, bottom;
+
+    static boolean hitLeft(float x, float y, float size) {
+        return x - size <= left;
     }
 
-    static boolean hitRight(float x, float y, int size) {
-        return x + size >= Screen.getWidth();
+    static boolean hitRight(float x, float y, float size) {
+        return x + size >= right;
     }
 
     static boolean hitTop(float x, float y, int size) {
-        return y - size <= 0;
+        return y - size <= top;
     }
 
-    public static boolean hitDown(float x, float y, int size) {
-        return y + size >= Screen.getHeight();
+    public static boolean hitBottom(float x, float y, int size) {
+        return y + size >= bottom;
     }
+
+    public static void setWalls() {
+        Wall.left = 0;
+        Wall.top = 0;
+        Wall.right = Screen.getWidth();
+        Wall.bottom = Screen.getHeight();
+    }
+
+    public static int getBottom() {
+        return bottom;
+    }
+
+    public static int getRight() {
+        return right;
+    }
+
+    public static int getLeft() {
+        return left;
+    }
+
+    public static int getTop() {
+        return top;
+    }
+
 }
