@@ -45,15 +45,15 @@ public class DxBall {
     }
 
     public boolean onTouchEvent(MotionEvent event) {
-        Mouse.x = event.getX();
-        Mouse.y = event.getY();
 
         switch (event.getAction()) {
-            //TODO: Make paddle movement smoother.
             case MotionEvent.ACTION_DOWN:
                 paddle.isMovable = true;
                 break;
             case MotionEvent.ACTION_MOVE:
+                Mouse.dx = event.getX() - Mouse.x;
+                //Mouse.dy = event.getY() - Mouse.y;
+                //Mouse.y = event.getY();
                 //paddle.move(x);
                 break;
             case MotionEvent.ACTION_UP:
@@ -64,6 +64,7 @@ public class DxBall {
                 }
                 break;
         }
+        Mouse.x = event.getX();
         return true;
     }
 }

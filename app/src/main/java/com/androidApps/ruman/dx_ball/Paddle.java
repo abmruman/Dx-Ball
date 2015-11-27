@@ -25,10 +25,20 @@ public class Paddle {
 
     private void calculateMove() {
         if (isMovable) {
-            if (this.x > Mouse.x && !Wall.hitLeft(this.x, this.y, width / 2 - 5))
-                setX(this.x - 10);
-            else if (this.x < Mouse.x && !Wall.hitRight(this.x, this.y, width / 2 + 5))
-                setX(this.x + 10);
+            float movement = width / 2 + Mouse.dx;
+            if (Mouse.dx > 0) {
+                if (Wall.hitRight(this.x, this.y, movement)) {
+                    setX(this.x + (Wall.getRight() - this.right));
+                } else {
+                    setX(this.x + Mouse.dx);
+                }
+            } else if (Mouse.dx < 0) {
+                if (Wall.hitLeft(this.x, this.y, movement)) {
+                    setX(this.x + (Wall.getLeft() - this.left));
+                } else {
+                    setX(this.x + Mouse.dx);
+                }
+            }
         }
     }
 
@@ -70,6 +80,10 @@ public class Paddle {
 
     private void calculateCorners() {
         left = x - width / 2;
+        if (left < 0) {
+            left = 0;
+            x = width / 2;
+        }
         top = y - height;
         right = left + width;
         bottom = top + height;

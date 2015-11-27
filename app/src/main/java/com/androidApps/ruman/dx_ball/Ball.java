@@ -36,7 +36,7 @@ public class Ball {
                 dx = -dx;
             } else if (Wall.hitTop(x, y, radius)) {
                 dy = -dy;
-            } else if (Wall.hitDown(x, y, radius)) {
+            } else if (Wall.hitBottom(x, y, radius)) {
                 dx = dy = 0;
                 fallen = true;
                 isOnAir = false;
