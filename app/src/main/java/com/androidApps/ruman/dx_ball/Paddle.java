@@ -48,7 +48,7 @@ public class Paddle {
     public void setDimension() {
         height = (int) (widthRatio * Screen.getHeight());
         width = (int) (heightRatio * Screen.getWidth());
-        radius = (int) (radiusRatio * ((Screen.getWidth() < Screen.getHeight()) ? Screen.getWidth() : Screen.getHeight()));
+        radius = (int) (radiusRatio * Screen.getHeight());
     }
 
     public void setInitialPosition(int x, int y) {
