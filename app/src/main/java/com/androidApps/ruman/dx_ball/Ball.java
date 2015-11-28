@@ -42,14 +42,6 @@ public class Ball {
                 fallen = true;
                 isOnAir = false;
             }
-
-            if (Game.dxBall.paddle.collisionSide(x, y, radius)) {
-                dx = -dx;
-                dy = -dy;
-            } else if (Game.dxBall.paddle.collisionTop(x, y, radius)) {
-                dy = (dy > 0) ? -dy : dy;
-            }
-
         }
 
     }
@@ -70,5 +62,21 @@ public class Ball {
 
     public int getRadius() {
         return radius;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public int getDx() {
+        return dx;
+    }
+
+    public int getDy() {
+        return dy;
     }
 }

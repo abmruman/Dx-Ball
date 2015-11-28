@@ -59,18 +59,21 @@ public class Paddle {
         setX(x);
     }
 
-    public boolean collisionTop(float x, float y, int radius) {
-        return y < top
-                && y + radius >= top
-                && x >= left
-                && x <= right;
+    private void calculateCorners() {
+        left = x - width / 2;
+        leftSide = left - radius;
+        if (leftSide < 0) {
+            left = radius;
+            x = width / 2 + radius;
+        }
+        top = y - height;
+        right = left + width;
+        bottom = y;
+        rightSide = right + radius;
     }
 
-    public boolean collisionSide(float x, float y, int radius) {
-        return ((right <= x && right >= x - radius)
-                || (left >= x && left <= x + radius)
-        )
-                && top <= y + radius && bottom > y;
+    public int getHeight() {
+        return height;
     }
 
     public float getX() {
@@ -82,20 +85,27 @@ public class Paddle {
         calculateCorners();
     }
 
-    private void calculateCorners() {
-        left = x - width / 2;
-        leftSide = left - radius;
-        if (leftSide < 0) {
-            left = radius;
-            x = width / 2 + radius;
-        }
-        top = y - height;
-        right = left + width;
-        bottom = top + height;
-        rightSide = right + radius;
+    public float getY() {
+        return y;
     }
 
-    public int getHeight() {
-        return height;
+    public int getWidth() {
+        return width;
+    }
+
+    public float getTop() {
+        return top;
+    }
+
+    public float getBottom() {
+        return bottom;
+    }
+
+    public float getLeftSide() {
+        return leftSide;
+    }
+
+    public float getRightSide() {
+        return rightSide;
     }
 }

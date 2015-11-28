@@ -1,5 +1,7 @@
 package com.androidApps.ruman.dx_ball;
 
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 
 /**
@@ -41,6 +43,29 @@ public class DxBall {
         }
         paddle.draw();
         ball.draw();
+        if (ball.isOnAir && hadCollision())
+            ball.bounce(ball.getDx(), -Math.abs(ball.getDy()));
+    }
+
+    private boolean hadCollision() {
+        int rad = 3;
+        Paint paint = Screen.newPaint(Color.RED, Paint.Style.STROKE);
+
+        float left = paddle.getLeftSide() - ball.getRadius(),
+                top = paddle.getTop() - ball.getRadius(),
+                right = paddle.getRightSide() + ball.getRadius(),
+                bottom = paddle.getBottom() - paddle.getHeight() / 2;
+
+        Screen.getCanvas().drawCircle(left, bottom, rad, paint);
+        Screen.getCanvas().drawCircle(left, top, rad, paint);
+        Screen.getCanvas().drawCircle(right, top, rad, paint);
+        Screen.getCanvas().drawCircle(right, bottom, rad, paint);
+        Screen.getCanvas().drawRect(left, top, right, bottom, paint);
+
+        return ball.getX() > (left)
+                && ball.getX() < (right)
+                && ball.getY() > (top)
+                && ball.getY() < (bottom);
     }
 
     public boolean onTouchEvent(MotionEvent event) {
@@ -58,8 +83,8 @@ public class DxBall {
             case MotionEvent.ACTION_UP:
                 paddle.isMovable = false;
                 if (!ball.isOnAir) {
-                    ball.isOnAir = true;
                     ball.bounce(5, -5);
+                    ball.isOnAir = true;
                 }
                 break;
         }
