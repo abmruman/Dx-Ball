@@ -1,8 +1,10 @@
 package com.androidApps.ruman.dx_ball;
 
 /**
- * Created by A B M Ruman on 23/11/2015.
- */
+ *
+ * @author A B M Ruman
+ *
+ **/
 public class Wall {
     private static int left, top, right, bottom;
 

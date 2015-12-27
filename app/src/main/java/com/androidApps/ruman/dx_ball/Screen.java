@@ -4,8 +4,10 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 /**
- * Created by A B M Ruman on 22/11/2015.
- */
+ *
+ * @author A B M Ruman
+ *
+ **/
 public class Screen {
     private static Canvas canvas;
     private static int height;

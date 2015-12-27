@@ -8,8 +8,10 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
- * Created by A B M Ruman on 18/11/2015.
- */
+ *
+ * @author A B M Ruman
+ *
+ **/
 public class GameView extends View{
     private Activity activity;
     public GameView(Context context) {

@@ -4,8 +4,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 /**
- * Created by A B M Ruman on 22/11/2015.
- */
+ *
+ * @author A B M Ruman
+ *
+ **/
 public class Paddle {
     public boolean isMovable;
     Paint paint;

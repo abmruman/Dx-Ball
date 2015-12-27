@@ -3,8 +3,10 @@ package com.androidApps.ruman.dx_ball;
 import android.view.MotionEvent;
 
 /**
- * Created by A B M Ruman on 22/11/2015.
- */
+ *
+ * @author A B M Ruman
+ *
+ **/
 public class DxBall {
     boolean started;
     Paddle paddle;
