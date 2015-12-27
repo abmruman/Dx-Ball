@@ -108,4 +108,10 @@ public class Paddle {
     public float getRightSide() {
         return rightSide;
     }
+
+    public int getCollisionDirection(float x) {
+        float dist = Math.abs(this.x - x) / 15;
+        dist = (float) Math.ceil(dist);
+        return (int) ((this.x > x) ? -dist : dist);
+    }
 }

@@ -42,7 +42,7 @@ public class DxBall {
         paddle.draw();
         ball.draw();
         if (ball.isOnAir && hadCollision())
-            ball.bounce(ball.getDx(), -Math.abs(ball.getDy()));
+            ball.bounce(paddle.getCollisionDirection(ball.getX()), -Math.abs(ball.getDy()));
     }
 
     private boolean hadCollision() {
@@ -72,7 +72,7 @@ public class DxBall {
             case MotionEvent.ACTION_UP:
                 paddle.isMovable = false;
                 if (!ball.isOnAir) {
-                    ball.bounce(5, -5);
+                    ball.bounce(3, -10);
                     ball.isOnAir = true;
                 }
                 break;
