@@ -33,11 +33,12 @@ public class Ball {
         } else {
             x += dx;
             y += dy;
-            //TODO: Fix wall bug, set the values using Math.abs().
-            if (Wall.hitLeft(x, y, radius) || Wall.hitRight(x, y, radius)) {
-                dx = -dx;
+            if (Wall.hitLeft(x, y, radius)) {
+                dx = Math.abs(dx);
+            } else if (Wall.hitRight(x, y, radius)) {
+                dx = -Math.abs(dx);
             } else if (Wall.hitTop(x, y, radius)) {
-                dy = -dy;
+                dy = Math.abs(dy);
             } else if (Wall.hitBottom(x, y, radius)) {
                 dx = dy = 0;
                 fallen = true;
