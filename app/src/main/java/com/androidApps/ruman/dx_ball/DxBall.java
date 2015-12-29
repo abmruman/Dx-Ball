@@ -2,6 +2,9 @@ package com.androidApps.ruman.dx_ball;
 
 import android.view.MotionEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author A B M Ruman
@@ -11,7 +14,7 @@ public class DxBall {
     boolean started;
     Paddle paddle;
     Ball ball;
-
+    List<Brick> bricks;
     public DxBall() {
         started = false;
         paddle = new Paddle();
@@ -20,6 +23,10 @@ public class DxBall {
 
     public void newGame() {
         started = true;
+        bricks = new ArrayList<Brick>();
+        for (int i = 0; i < 5; i++) {
+            bricks.add(new Brick());
+        }
         setMeasurements();
         setInitialPosition();
     }
@@ -28,11 +35,24 @@ public class DxBall {
         int x = Screen.getWidth(), y = Screen.getHeight();
         paddle.setInitialPosition(x /= 2, y -= paddle.getHeight());
         ball.setInitialPosition(x, y - paddle.getHeight() - ball.getRadius());
+        float m = 100, n = 100;
+        for (int i = 0; i < bricks.size(); i++) {
+            Brick brick = bricks.get(i);
+            if (i == 0) {
+                m = (brick.getWidth() + 10) * 5;
+                n = (brick.getHeight() + 10) * 5;
+            }
+            brick.setInitialPosition(m, n);
+            m = brick.getRight() + brick.getWidth() / 2 + 10;
+        }
     }
 
     private void setMeasurements() {
         paddle.setDimension();
         ball.setRadius();
+        for (int i = 0; i < bricks.size(); i++) {
+            bricks.get(i).setDimension();
+        }
     }
 
     public void draw() {
@@ -43,6 +63,9 @@ public class DxBall {
         }
         paddle.draw();
         ball.draw();
+        for (int i = 0; i < bricks.size(); i++) {
+            bricks.get(i).draw();
+        }
         if (ball.isOnAir && hadCollision())
             ball.bounce(paddle.getCollisionDirection(ball.getX()), -Math.abs(ball.getDy()));
     }
