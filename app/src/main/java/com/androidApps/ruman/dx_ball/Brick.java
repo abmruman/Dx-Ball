@@ -8,17 +8,21 @@ import android.graphics.Paint;
  **/
 public class Brick {
     public static int count = 0;
-    Paint paint;
-    boolean broke;
+    public static int space = 1;
+    public static int shade = 12;
+    Paint paint, paint2;
+    boolean isBroke;
     private float x, y, heightRatio, widthRatio, left, top, right, bottom;
     private int height, width;
 
     public Brick() {
-        paint = Screen.newPaint(Color.WHITE, Paint.Style.FILL);
-        heightRatio = 100 / 1600f;
-        widthRatio = 50 / 1200f;
+        paint = Screen.newPaint(Color.GRAY, Paint.Style.FILL);
+        paint2 = Screen.newPaint(Color.WHITE, Paint.Style.FILL);
+        heightRatio = 200 / 1600f;
+        widthRatio = 100 / 1200f;
+
         Brick.count++;
-        broke = false;
+        isBroke = false;
     }
 
     public Brick(float x, float y) {
@@ -29,6 +33,11 @@ public class Brick {
     public void draw() {
         //calculateMove();
         Screen.getCanvas().drawRect(left, top, right, bottom, paint);
+        Screen.getCanvas().drawRect(left + shade, top + shade, right - shade, bottom - shade, paint2);
+        Screen.getCanvas().drawLine(left, top, left + shade, top + shade, paint2);
+        Screen.getCanvas().drawLine(right, top, right - shade, top + shade, paint2);
+        Screen.getCanvas().drawLine(left, bottom, left + shade, bottom - shade, paint2);
+        Screen.getCanvas().drawLine(right, bottom, right - shade, bottom - shade, paint2);
     }
 
     /*private void calculateMove() {
@@ -128,13 +137,14 @@ public class Brick {
                 && ball.getY() > top
                 && ball.getY() < bottom) {
 
-            if (ball.getX() < getLeft() || ball.getX() > getRight()) {
-                ball.bounce(-ball.getDx(), ball.getDy());
-            } else if (ball.getY() < getTop() || ball.getX() > getBottom()) {
+            if (ball.getX() > getLeft() && ball.getX() < getRight()) {
                 ball.bounce(ball.getDx(), -ball.getDy());
+            } else if (ball.getX() < getLeft() || ball.getX() > getRight()) {
+                ball.bounce(-ball.getDx(), ball.getDy());
             }
-
-
+            isBroke = true;
+            Brick.count--;
+            Game.dxBall.score += 5;
         }
 
     }

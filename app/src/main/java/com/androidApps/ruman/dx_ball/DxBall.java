@@ -1,5 +1,7 @@
 package com.androidApps.ruman.dx_ball;
 
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import java.util.List;
  **/
 public class DxBall {
     boolean started;
+    int score;
+    int life;
 
     Paddle paddle;
     Ball ball;
@@ -19,13 +23,18 @@ public class DxBall {
 
     public DxBall() {
         started = false;
+        started = false;
         paddle = new Paddle();
         ball = new Ball();
     }
 
     public void newGame() {
         started = true;
+        ball.isOnAir = false;
+        life = 2;
+        score = 0;
         bricks = new ArrayList<Brick>();
+
         for (int i = 0; i < 5; i++) {
             bricks.add(new Brick());
         }
@@ -42,11 +51,11 @@ public class DxBall {
         for (int i = 0; i < bricks.size(); i++) {
             Brick brick = bricks.get(i);
             if (i == 0) {
-                m = (brick.getWidth() + 10) * 5;
-                n = (brick.getHeight() + 10) * 5;
+                m = 500 / 1900f * Screen.getWidth();
+                n = 275 / 1200f * Screen.getHeight();
             }
             brick.setInitialPosition(m, n);
-            m = brick.getRight() + brick.getWidth() / 2 + 10;
+            m = brick.getRight() + brick.getWidth() / 2 + Brick.space;
         }
     }
 
@@ -59,15 +68,26 @@ public class DxBall {
     }
 
     public void draw() {
+        if (Brick.count == 0 || life == 0) {
+//            try {
+//                Thread.sleep(100);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+            newGame();
+        }
         if (ball.fallen) {
             ball.fallen = false;
             ball.isOnAir = false;
+            life--;
             setInitialPosition();
         }
         paddle.draw();
         ball.draw();
         for (int i = 0; i < bricks.size(); i++) {
-            bricks.get(i).draw();
+            Brick brick = bricks.get(i);
+            if (!brick.isBroke)
+                brick.draw();
         }
         if (ball.isOnAir) {
             if (hadCollisionWithPaddle()) {
@@ -76,6 +96,11 @@ public class DxBall {
 
             handleCollisionWithBricks();
         }
+        Paint paint = Screen.newPaint(Color.WHITE, Paint.Style.STROKE);
+        paint.setTextSize(50);
+
+        Screen.getCanvas().drawText("Score: " + score, 50, 50, paint);
+        Screen.getCanvas().drawText("Life : " + life, 50, 100, paint);
     }
 
     private boolean hadCollisionWithPaddle() {
@@ -93,7 +118,8 @@ public class DxBall {
     private void handleCollisionWithBricks() {
         for (int i = 0; i < bricks.size(); i++) {
             Brick brick = bricks.get(i);
-            brick.handleCollision(ball);
+            if (!brick.isBroke)
+                brick.handleCollision(ball);
         }
     }
 
