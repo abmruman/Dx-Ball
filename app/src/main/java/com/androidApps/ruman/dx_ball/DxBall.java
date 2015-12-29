@@ -12,9 +12,11 @@ import java.util.List;
  **/
 public class DxBall {
     boolean started;
+
     Paddle paddle;
     Ball ball;
     List<Brick> bricks;
+
     public DxBall() {
         started = false;
         paddle = new Paddle();
@@ -35,6 +37,7 @@ public class DxBall {
         int x = Screen.getWidth(), y = Screen.getHeight();
         paddle.setInitialPosition(x /= 2, y -= paddle.getHeight());
         ball.setInitialPosition(x, y - paddle.getHeight() - ball.getRadius());
+
         float m = 100, n = 100;
         for (int i = 0; i < bricks.size(); i++) {
             Brick brick = bricks.get(i);
@@ -66,11 +69,16 @@ public class DxBall {
         for (int i = 0; i < bricks.size(); i++) {
             bricks.get(i).draw();
         }
-        if (ball.isOnAir && hadCollision())
-            ball.bounce(paddle.getCollisionDirection(ball.getX()), -Math.abs(ball.getDy()));
+        if (ball.isOnAir) {
+            if (hadCollisionWithPaddle()) {
+                ball.bounce(paddle.getCollisionDirection(ball.getX()), -Math.abs(ball.getDy()));
+            }
+
+            handleCollisionWithBricks();
+        }
     }
 
-    private boolean hadCollision() {
+    private boolean hadCollisionWithPaddle() {
         float left = paddle.getLeftSide() - ball.getRadius(),
                 top = paddle.getTop() - ball.getRadius(),
                 right = paddle.getRightSide() + ball.getRadius(),
@@ -80,6 +88,13 @@ public class DxBall {
                 && ball.getX() < right
                 && ball.getY() > top
                 && ball.getY() < bottom;
+    }
+
+    private void handleCollisionWithBricks() {
+        for (int i = 0; i < bricks.size(); i++) {
+            Brick brick = bricks.get(i);
+            brick.handleCollision(ball);
+        }
     }
 
     public boolean onTouchEvent(MotionEvent event) {

@@ -9,6 +9,7 @@ import android.graphics.Paint;
 public class Brick {
     public static int count = 0;
     Paint paint;
+    boolean broke;
     private float x, y, heightRatio, widthRatio, left, top, right, bottom;
     private int height, width;
 
@@ -17,6 +18,7 @@ public class Brick {
         heightRatio = 100 / 1600f;
         widthRatio = 50 / 1200f;
         Brick.count++;
+        broke = false;
     }
 
     public Brick(float x, float y) {
@@ -108,10 +110,32 @@ public class Brick {
         return bottom;
     }
 
-    public int getCollisionDirection(float x) {
+    public int getCollisionDirection(float x, float y) {
         float dist = Math.abs(this.x - x) / 15;
         dist = (float) Math.ceil(dist);
         return (int) ((this.x > x) ? -dist : dist);
     }
 
+    public void handleCollision(Ball ball) {
+        float left = getLeft() - ball.getRadius(),
+                top = getTop() - ball.getRadius(),
+                right = getRight() + ball.getRadius(),
+                bottom = getBottom() + ball.getRadius();
+        //Screen.getCanvas().drawRect(left, top, right, bottom, Screen.newPaint(Color.RED, Paint.Style.STROKE));
+
+        if (ball.getX() > left
+                && ball.getX() < right
+                && ball.getY() > top
+                && ball.getY() < bottom) {
+
+            if (ball.getX() < getLeft() || ball.getX() > getRight()) {
+                ball.bounce(-ball.getDx(), ball.getDy());
+            } else if (ball.getY() < getTop() || ball.getX() > getBottom()) {
+                ball.bounce(ball.getDx(), -ball.getDy());
+            }
+
+
+        }
+
+    }
 }
