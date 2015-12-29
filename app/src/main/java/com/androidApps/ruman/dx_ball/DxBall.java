@@ -16,16 +16,19 @@ public class DxBall {
     boolean started;
     int score;
     int life;
-
     Paddle paddle;
     Ball ball;
     List<Brick> bricks;
+    private int stage;
+    private int maxStage;
 
     public DxBall() {
         started = false;
         started = false;
+        maxStage = 2;
         paddle = new Paddle();
         ball = new Ball();
+        bricks = new ArrayList<Brick>();
     }
 
     public void newGame() {
@@ -33,11 +36,8 @@ public class DxBall {
         ball.isOnAir = false;
         life = 2;
         score = 0;
-        bricks = new ArrayList<Brick>();
-
-        for (int i = 0; i < 5; i++) {
-            bricks.add(new Brick());
-        }
+        stage = 1;
+        bricks.removeAll(bricks);
         setMeasurements();
         setInitialPosition();
     }
@@ -48,33 +48,66 @@ public class DxBall {
         ball.setInitialPosition(x, y - paddle.getHeight() - ball.getRadius());
 
         float m = 100, n = 100;
-        for (int i = 0; i < bricks.size(); i++) {
-            Brick brick = bricks.get(i);
-            if (i == 0) {
-                m = 500 / 1900f * Screen.getWidth();
-                n = 275 / 1200f * Screen.getHeight();
-            }
-            brick.setInitialPosition(m, n);
-            m = brick.getRight() + brick.getWidth() / 2 + Brick.space;
+        switch (stage) {
+            case 1:
+                for (int i = 0; i < bricks.size(); i++) {
+                    Brick brick = bricks.get(i);
+                    if (i == 0) {
+                        m = 500 / 1900f * Screen.getWidth() + (brick.getWidth() + Brick.space) * 2;
+                        n = 275 / 1200f * Screen.getHeight();
+                    }
+                    if (i == 1) {
+                        m -= (brick.getWidth() + Brick.space) * 2;
+                        n += (brick.getHeight() + Brick.space);
+                    }
+                    if (i == 4) {
+                        m -= (brick.getWidth() + Brick.space) * 4;
+                        n += brick.getHeight() + Brick.space;
+
+                    }
+                    brick.setInitialPosition(m, n);
+                    m = brick.getRight() + brick.getWidth() / 2 + Brick.space;
+                }
+                break;
+            case 2:
+                for (int i = 0; i < bricks.size(); i++) {
+                    Brick brick = bricks.get(i);
+                    if (i == 0) {
+                        m = 500 / 1900f * Screen.getWidth();
+                        n = 275 / 1200f * Screen.getHeight();
+                    }
+                    if (i == 5) {
+                        n += brick.getHeight() + Brick.space;
+                        m = 500 / 1900f * Screen.getWidth() + brick.getWidth() + Brick.space;
+                    }
+                    if (i == 8) {
+                        n += brick.getHeight() + Brick.space;
+                        m = 500 / 1900f * Screen.getWidth() + (brick.getWidth() + Brick.space) * 2;
+                    }
+                    brick.setInitialPosition(m, n);
+                    m = brick.getRight() + brick.getWidth() / 2 + Brick.space;
+                }
+                break;
         }
     }
 
     private void setMeasurements() {
         paddle.setDimension();
         ball.setRadius();
+        for (int i = 0; i < 9; i++) {
+            bricks.add(new Brick());
+        }
         for (int i = 0; i < bricks.size(); i++) {
             bricks.get(i).setDimension();
         }
     }
 
     public void draw() {
-        if (Brick.count == 0 || life == 0) {
-//            try {
-//                Thread.sleep(100);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+        if (life == 0) {
             newGame();
+        }
+        if (Brick.count == 0) {
+            levelUp();
         }
         if (ball.fallen) {
             ball.fallen = false;
@@ -99,8 +132,21 @@ public class DxBall {
         Paint paint = Screen.newPaint(Color.WHITE, Paint.Style.STROKE);
         paint.setTextSize(50);
 
-        Screen.getCanvas().drawText("Score: " + score, 50, 50, paint);
-        Screen.getCanvas().drawText("Life : " + life, 50, 100, paint);
+        Screen.getCanvas().drawText("Stage : " + stage, 50, 50, paint);
+        Screen.getCanvas().drawText("Score: " + score, 50, 100, paint);
+        Screen.getCanvas().drawText("Life : " + life, 50, 150, paint);
+    }
+
+    private void levelUp() {
+        if (stage < maxStage)
+            stage++;
+        else {
+            stage = 1;
+        }
+        ;
+        bricks.removeAll(bricks);
+        setMeasurements();
+        setInitialPosition();
     }
 
     private boolean hadCollisionWithPaddle() {
