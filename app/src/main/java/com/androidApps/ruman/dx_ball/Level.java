@@ -11,11 +11,12 @@ public class Level {
     public static int stage;
 
     public static void setInitialPosition() {
-        Brick.resetCount();
-        Level.bricks.clear();
-        for (int i = 0; i < 9; i++) {
-            bricks.add(new Brick());
+        if (bricks.isEmpty()) {
+            for (int i = 0; i < 9; i++) {
+                bricks.add(new Brick());
+            }
         }
+
         for (Brick brick : bricks) {
             brick.setDimension();
         }

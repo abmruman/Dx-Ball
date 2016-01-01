@@ -32,6 +32,8 @@ public class DxBall {
         life = 3;
         score = 0;
         Level.stage = 1;
+        Brick.resetCount();
+        Level.bricks.clear();
         setMeasurements();
         setInitialPosition();
     }
