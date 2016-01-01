@@ -123,9 +123,33 @@ public class Brick {
                 top = getTop() - ball.getRadius(),
                 right = getRight() + ball.getRadius(),
                 bottom = getBottom() + ball.getRadius();
-        //Screen.getCanvas().drawRect(left, top, right, bottom, Screen.newPaint(Color.RED, Paint.Style.STROKE));
+        Screen.getCanvas().drawRect(left, getTop(), getLeft(), getBottom(), Screen.newPaint(Color.RED, Paint.Style.STROKE));
+        Screen.getCanvas().drawRect(getLeft(), top, getRight(), getTop(), Screen.newPaint(Color.RED, Paint.Style.STROKE));
+        Screen.getCanvas().drawRect(getRight(), getTop(), right, getBottom(), Screen.newPaint(Color.RED, Paint.Style.STROKE));
+        Screen.getCanvas().drawRect(getLeft(), getBottom(), getRight(), bottom, Screen.newPaint(Color.RED, Paint.Style.STROKE));
 
         if (ball.getX() > left
+                && ball.getY() > getTop()
+                && ball.getX() < getLeft()
+                && ball.getY() < getBottom()) {
+            ball.bounce(-Math.abs(ball.getDx()), ball.getDy());
+        } else if (ball.getX() > getLeft()
+                && ball.getY() > top
+                && ball.getX() < getRight()
+                && ball.getY() < getBottom()) {
+            ball.bounce(ball.getDx(), -Math.abs(ball.getDy()));
+        } else if (ball.getX() > getLeft()
+                && ball.getY() > getTop()
+                && ball.getX() < right
+                && ball.getY() < getBottom()) {
+            ball.bounce(Math.abs(ball.getDx()), ball.getDy());
+        } else if (ball.getX() > getLeft()
+                && ball.getY() > getTop()
+                && ball.getX() < getRight()
+                && ball.getY() < bottom) {
+            ball.bounce(ball.getDx(), Math.abs(ball.getDy()));
+        }
+        /*if (ball.getX() > left
                 && ball.getX() < right
                 && ball.getY() > top
                 && ball.getY() < bottom) {
@@ -137,7 +161,7 @@ public class Brick {
             }
             destroy();
             Game.dxBall.score += 5;
-        }
+        }*/
 
     }
 
