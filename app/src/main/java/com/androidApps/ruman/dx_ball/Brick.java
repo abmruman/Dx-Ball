@@ -130,28 +130,28 @@ public class Brick {
                 top = getTop() - ball.getRadius(),
                 right = getRight() + ball.getRadius(),
                 bottom = getBottom() + ball.getRadius();
-        Screen.getCanvas().drawRect(left, getTop(), getLeft(), getBottom(), Screen.newPaint(Color.RED, Paint.Style.STROKE));
+        Screen.getCanvas().drawRect(left, getTop() - 1, getLeft(), getBottom() + 1, Screen.newPaint(Color.RED, Paint.Style.STROKE));
         Screen.getCanvas().drawRect(getLeft(), top, getRight(), getTop(), Screen.newPaint(Color.RED, Paint.Style.STROKE));
-        Screen.getCanvas().drawRect(getRight(), getTop(), right, getBottom(), Screen.newPaint(Color.RED, Paint.Style.STROKE));
+        Screen.getCanvas().drawRect(getRight(), getTop() - 1, right, getBottom() + 1, Screen.newPaint(Color.RED, Paint.Style.STROKE));
         Screen.getCanvas().drawRect(getLeft(), getBottom(), getRight(), bottom, Screen.newPaint(Color.RED, Paint.Style.STROKE));
 
         if (ball.getX() > left
-                && ball.getY() > getTop()
+                && ball.getY() > getTop() - 1
                 && ball.getX() < getLeft()
-                && ball.getY() < getBottom()) {
+                && ball.getY() < getBottom() + 1) {
             ball.bounce(-Math.abs(ball.getDx()), ball.getDy());
         } else if (ball.getX() > getLeft()
                 && ball.getY() > top
                 && ball.getX() < getRight()
-                && ball.getY() < getBottom()) {
+                && ball.getY() < getTop()) {
             ball.bounce(ball.getDx(), -Math.abs(ball.getDy()));
-        } else if (ball.getX() > getLeft()
-                && ball.getY() > getTop()
+        } else if (ball.getX() > getRight()
+                && ball.getY() > getTop() - 1
                 && ball.getX() < right
-                && ball.getY() < getBottom()) {
+                && ball.getY() < getBottom() + 1) {
             ball.bounce(Math.abs(ball.getDx()), ball.getDy());
         } else if (ball.getX() > getLeft()
-                && ball.getY() > getTop()
+                && ball.getY() > getBottom()
                 && ball.getX() < getRight()
                 && ball.getY() < bottom) {
             ball.bounce(ball.getDx(), Math.abs(ball.getDy()));
