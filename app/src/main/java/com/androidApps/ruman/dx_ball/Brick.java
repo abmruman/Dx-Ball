@@ -11,7 +11,7 @@ public class Brick {
     private static int space = 1;
     private static int shade = 12;
     Paint paint, paint2;
-    boolean isBroke;
+    boolean isBroken;
     private float x, y, heightRatio, widthRatio, left, top, right, bottom;
     private int height, width;
 
@@ -22,7 +22,7 @@ public class Brick {
         widthRatio = 100 / 1200f;
 
         Brick.count++;
-        isBroke = false;
+        isBroken = false;
     }
 
     public Brick(float x, float y) {
@@ -142,7 +142,7 @@ public class Brick {
     }
 
     public void destroy() {
-        isBroke = true;
+        isBroken = true;
         if (Brick.count > 0)
             Brick.count--;
     }
