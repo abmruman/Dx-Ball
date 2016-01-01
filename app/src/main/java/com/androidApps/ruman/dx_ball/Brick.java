@@ -49,7 +49,9 @@ public class Brick {
     public void draw() {
         //calculateMove();
         Screen.getCanvas().drawRect(left, top, right, bottom, paint);
+
         Screen.getCanvas().drawRect(left + shade, top + shade, right - shade, bottom - shade, paint2);
+
         Screen.getCanvas().drawLine(left, top, left + shade, top + shade, paint2);
         Screen.getCanvas().drawLine(right, top, right - shade, top + shade, paint2);
         Screen.getCanvas().drawLine(left, bottom, left + shade, bottom - shade, paint2);
@@ -138,11 +140,11 @@ public class Brick {
         } else if (ball.getX() > getLeft()
                 && ball.getY() > top
                 && ball.getX() < getRight()
-                && ball.getY() < getBottom()) {
+                && ball.getY() < getTop()) {
             ball.bounce(ball.getDx(), -Math.abs(ball.getDy()));
             destroy();
             reward();
-        } else if (ball.getX() > getLeft()
+        } else if (ball.getX() > getRight()
                 && ball.getY() > getTop()
                 && ball.getX() < right
                 && ball.getY() < getBottom()) {
@@ -150,13 +152,14 @@ public class Brick {
             destroy();
             reward();
         } else if (ball.getX() > getLeft()
-                && ball.getY() > getTop()
+                && ball.getY() > getBottom()
                 && ball.getX() < getRight()
                 && ball.getY() < bottom) {
             ball.bounce(ball.getDx(), Math.abs(ball.getDy()));
             destroy();
             reward();
         }
+
         /*if (ball.getX() > left
                 && ball.getX() < right
                 && ball.getY() > top
