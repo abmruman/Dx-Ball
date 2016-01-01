@@ -5,7 +5,6 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -18,7 +17,7 @@ public class DxBall {
     int life;
     Paddle paddle;
     Ball ball;
-    List<Brick> bricks;
+    ArrayList<Brick> bricks;
     private int stage;
     private int maxStage;
 
@@ -28,16 +27,17 @@ public class DxBall {
         maxStage = 2;
         paddle = new Paddle();
         ball = new Ball();
-        bricks = new ArrayList<Brick>();
+        bricks = new ArrayList<>();
     }
 
     public void newGame() {
         started = true;
         ball.isOnAir = false;
-        life = 2;
+        life = 3;
         score = 0;
         stage = 1;
-        bricks.removeAll(bricks);
+        Brick.resetCount();
+        bricks.clear();
         setMeasurements();
         setInitialPosition();
     }
@@ -53,20 +53,20 @@ public class DxBall {
                 for (int i = 0; i < bricks.size(); i++) {
                     Brick brick = bricks.get(i);
                     if (i == 0) {
-                        m = 500 / 1900f * Screen.getWidth() + (brick.getWidth() + Brick.space) * 2;
+                        m = 500 / 1900f * Screen.getWidth() + (brick.getWidth() + Brick.getSpace()) * 2;
                         n = 275 / 1200f * Screen.getHeight();
                     }
                     if (i == 1) {
-                        m -= (brick.getWidth() + Brick.space) * 2;
-                        n += (brick.getHeight() + Brick.space);
+                        m -= (brick.getWidth() + Brick.getSpace()) * 2;
+                        n += (brick.getHeight() + Brick.getSpace());
                     }
                     if (i == 4) {
-                        m -= (brick.getWidth() + Brick.space) * 4;
-                        n += brick.getHeight() + Brick.space;
+                        m -= (brick.getWidth() + Brick.getSpace()) * 4;
+                        n += brick.getHeight() + Brick.getSpace();
 
                     }
                     brick.setInitialPosition(m, n);
-                    m = brick.getRight() + brick.getWidth() / 2 + Brick.space;
+                    m = brick.getRight() + brick.getWidth() / 2 + Brick.getSpace();
                 }
                 break;
             case 2:
@@ -77,15 +77,15 @@ public class DxBall {
                         n = 275 / 1200f * Screen.getHeight();
                     }
                     if (i == 5) {
-                        n += brick.getHeight() + Brick.space;
-                        m = 500 / 1900f * Screen.getWidth() + brick.getWidth() + Brick.space;
+                        n += brick.getHeight() + Brick.getSpace();
+                        m = 500 / 1900f * Screen.getWidth() + brick.getWidth() + Brick.getSpace();
                     }
                     if (i == 8) {
-                        n += brick.getHeight() + Brick.space;
-                        m = 500 / 1900f * Screen.getWidth() + (brick.getWidth() + Brick.space) * 2;
+                        n += brick.getHeight() + Brick.getSpace();
+                        m = 500 / 1900f * Screen.getWidth() + (brick.getWidth() + Brick.getSpace()) * 2;
                     }
                     brick.setInitialPosition(m, n);
-                    m = brick.getRight() + brick.getWidth() / 2 + Brick.space;
+                    m = brick.getRight() + brick.getWidth() / 2 + Brick.getSpace();
                 }
                 break;
         }
@@ -97,8 +97,8 @@ public class DxBall {
         for (int i = 0; i < 9; i++) {
             bricks.add(new Brick());
         }
-        for (int i = 0; i < bricks.size(); i++) {
-            bricks.get(i).setDimension();
+        for (Brick brick : bricks) {
+            brick.setDimension();
         }
     }
 
@@ -106,7 +106,7 @@ public class DxBall {
         if (life == 0) {
             newGame();
         }
-        if (Brick.count == 0) {
+        if (Brick.getCount() == 0) {
             levelUp();
         }
         if (ball.fallen) {
@@ -132,7 +132,7 @@ public class DxBall {
         Paint paint = Screen.newPaint(Color.WHITE, Paint.Style.STROKE);
         paint.setTextSize(50);
 
-        Screen.getCanvas().drawText("Stage : " + stage, 50, 50, paint);
+        Screen.getCanvas().drawText("Stage : " + stage, Screen.getWidth() - 220, 100, paint);
         Screen.getCanvas().drawText("Score: " + score, 50, 100, paint);
         Screen.getCanvas().drawText("Life : " + life, 50, 150, paint);
     }
@@ -143,8 +143,9 @@ public class DxBall {
         else {
             stage = 1;
         }
-        ;
-        bricks.removeAll(bricks);
+        ball.isOnAir = false;
+        Brick.resetCount();
+        bricks.clear();
         setMeasurements();
         setInitialPosition();
     }

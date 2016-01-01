@@ -7,9 +7,9 @@ import android.graphics.Paint;
  * @author A B M Ruman
  **/
 public class Brick {
-    public static int count = 0;
-    public static int space = 1;
-    public static int shade = 12;
+    private static int count = 0;
+    private static int space = 1;
+    private static int shade = 12;
     Paint paint, paint2;
     boolean isBroke;
     private float x, y, heightRatio, widthRatio, left, top, right, bottom;
@@ -30,6 +30,22 @@ public class Brick {
         setInitialPosition(x, y);
     }
 
+    public static int getCount() {
+        return count;
+    }
+
+    public static int getShade() {
+        return shade;
+    }
+
+    public static int getSpace() {
+        return space;
+    }
+
+    public static void resetCount() {
+        count = 0;
+    }
+
     public void draw() {
         //calculateMove();
         Screen.getCanvas().drawRect(left, top, right, bottom, paint);
@@ -39,23 +55,6 @@ public class Brick {
         Screen.getCanvas().drawLine(left, bottom, left + shade, bottom - shade, paint2);
         Screen.getCanvas().drawLine(right, bottom, right - shade, bottom - shade, paint2);
     }
-
-    /*private void calculateMove() {
-        float movement = width / 2 + radius + Mouse.dx;
-        if (Mouse.dx > 0) {
-            if (Wall.hitRight(this.x, this.y, movement)) {
-                setX(this.x + (Wall.getRight() - this.right - radius));
-            } else {
-                setX(this.x + Mouse.dx);
-            }
-        } else if (Mouse.dx < 0) {
-            if (Wall.hitLeft(this.x, this.y, movement)) {
-                setX(this.x + (Wall.getLeft() - this.left + radius));
-            } else {
-                setX(this.x + Mouse.dx);
-            }
-        }
-    }*/
 
     public void setDimension() {
         height = (int) (widthRatio * Screen.getHeight());
@@ -119,12 +118,6 @@ public class Brick {
         return bottom;
     }
 
-    public int getCollisionDirection(float x, float y) {
-        float dist = Math.abs(this.x - x) / 15;
-        dist = (float) Math.ceil(dist);
-        return (int) ((this.x > x) ? -dist : dist);
-    }
-
     public void handleCollision(Ball ball) {
         float left = getLeft() - ball.getRadius(),
                 top = getTop() - ball.getRadius(),
@@ -142,10 +135,15 @@ public class Brick {
             } else if (ball.getX() < getLeft() || ball.getX() > getRight()) {
                 ball.bounce(-ball.getDx(), ball.getDy());
             }
-            isBroke = true;
-            Brick.count--;
+            destroy();
             Game.dxBall.score += 5;
         }
 
+    }
+
+    public void destroy() {
+        isBroke = true;
+        if (Brick.count > 0)
+            Brick.count--;
     }
 }
