@@ -12,22 +12,22 @@ import java.util.ArrayList;
  *
  **/
 public class DxBall {
-    boolean started;
+    boolean isStarted;
     int score;
     int life;
     Paddle paddle;
     Ball ball;
 
     public DxBall() {
-        started = false;
-        started = false;
+        isStarted = false;
+        isStarted = false;
         paddle = new Paddle();
         ball = new Ball();
         Level.bricks = new ArrayList<>();
     }
 
     public void newGame() {
-        started = true;
+        isStarted = true;
         ball.isOnAir = false;
         life = 3;
         score = 0;
@@ -51,10 +51,16 @@ public class DxBall {
     }
 
     public void draw() {
+        int bannerTextSize = (int) (250 / 1920f * Screen.getWidth());
+        Paint paint = Screen.newPaint(Color.WHITE, Paint.Style.STROKE);
+        paint.setTextSize(bannerTextSize);
+        paint.setTextAlign(Paint.Align.CENTER);
         if (life == 0) {
-            newGame();
+            Screen.getCanvas().drawText("Game Over!", Screen.getWidth() / 2, Screen.getHeight() / 2, paint);
+//            newGame();
         } else if (Brick.getCount() == 0) {
-            levelUp();
+            Screen.getCanvas().drawText("Level Up!", Screen.getWidth() / 2, Screen.getHeight() / 2, paint);
+//            levelUp();
         } else if (ball.fallen) {
             ball.fallen = false;
             ball.isOnAir = false;
@@ -71,12 +77,15 @@ public class DxBall {
 
                 handleCollisionWithBricks();
             }
-            Paint paint = Screen.newPaint(Color.WHITE, Paint.Style.STROKE);
-            paint.setTextSize(50);
 
-            Screen.getCanvas().drawText("Stage : " + Level.stage, Screen.getWidth() - 220, 100, paint);
+            paint.setTextSize(50);
+            paint.setTextAlign(Paint.Align.LEFT);
+
+            //Screen.getCanvas().drawText("Level : " + Level.stage, 50, 150, paint);
             Screen.getCanvas().drawText("Score: " + score, 50, 100, paint);
-            Screen.getCanvas().drawText("Life : " + life, 50, 150, paint);
+
+            paint.setTextAlign(Paint.Align.RIGHT);
+            Screen.getCanvas().drawText("Life : " + life, Screen.getWidth() - 50, 100, paint);
         }
     }
 
@@ -100,6 +109,9 @@ public class DxBall {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 paddle.isMovable = true;
+                if (life == 0 || Brick.getCount() == 0) {
+                    Screen.isTappedOnText = true;
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 Mouse.dx = event.getX() - Mouse.x;
@@ -109,10 +121,26 @@ public class DxBall {
                 break;
             case MotionEvent.ACTION_UP:
                 paddle.isMovable = false;
-                if (!ball.isOnAir) {
-                    ball.bounce(3, -10);
-                    ball.isOnAir = true;
+                if (life == 0) {
+                    if (Screen.isTappedOnText) {
+                        newGame();
+                        Screen.isTappedOnText = false;
+                    }
+                } else if (Brick.getCount() == 0) {
+                    if (Screen.isTappedOnText) {
+                        levelUp();
+                        Screen.isTappedOnText = false;
+                    }
+                } else if (ball.fallen) {
+                    //setInitialPosition();
+                } else {
+
+                    if (!ball.isOnAir) {
+                        ball.bounce(3, -10);
+                        ball.isOnAir = true;
+                    }
                 }
+
                 break;
         }
         Mouse.x = event.getX();

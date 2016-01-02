@@ -27,20 +27,19 @@ public class Level {
                 for (Brick brick : bricks) {
                     brick.setDimension();
                 }
-
                 for (int i = 0; i < bricks.size(); i++) {
                     Brick brick = bricks.get(i);
                     if (i == 0) {
-                        m = leftMargin + (brick.getWidth() + Brick.getSpace()) * 2;
+                        m = leftMargin;
                         n = topMargin;
                     }
-                    if (i == 1) {
-                        m -= (brick.getWidth() + Brick.getSpace()) * 2;
-                        n += (brick.getHeight() + Brick.getSpace());
-                    }
-                    if (i == 4) {
-                        m -= (brick.getWidth() + Brick.getSpace()) * 4;
+                    if (i == 5) {
                         n += brick.getHeight() + Brick.getSpace();
+                        m = leftMargin + brick.getWidth() + Brick.getSpace();
+                    }
+                    if (i == 8) {
+                        n += brick.getHeight() + Brick.getSpace();
+                        m = leftMargin + (brick.getWidth() + Brick.getSpace()) * 2;
                     }
                     brick.setInitialPosition(m, n);
                     m = brick.getRight() + brick.getWidth() / 2 + Brick.getSpace();
@@ -55,19 +54,20 @@ public class Level {
                 for (Brick brick : bricks) {
                     brick.setDimension();
                 }
+
                 for (int i = 0; i < bricks.size(); i++) {
                     Brick brick = bricks.get(i);
                     if (i == 0) {
-                        m = leftMargin;
+                        m = leftMargin + (brick.getWidth() + Brick.getSpace()) * 2;
                         n = topMargin;
                     }
-                    if (i == 5) {
-                        n += brick.getHeight() + Brick.getSpace();
-                        m = leftMargin + brick.getWidth() + Brick.getSpace();
+                    if (i == 1) {
+                        m -= (brick.getWidth() + Brick.getSpace()) * 2;
+                        n += (brick.getHeight() + Brick.getSpace());
                     }
-                    if (i == 8) {
+                    if (i == 4) {
+                        m -= (brick.getWidth() + Brick.getSpace()) * 4;
                         n += brick.getHeight() + Brick.getSpace();
-                        m = leftMargin + (brick.getWidth() + Brick.getSpace()) * 2;
                     }
                     brick.setInitialPosition(m, n);
                     m = brick.getRight() + brick.getWidth() / 2 + Brick.getSpace();

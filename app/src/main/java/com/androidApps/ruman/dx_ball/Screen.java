@@ -9,6 +9,7 @@ import android.graphics.Paint;
  *
  **/
 public class Screen {
+    public static boolean isTappedOnText;
     private static Canvas canvas;
     private static int height;
     private static int width;

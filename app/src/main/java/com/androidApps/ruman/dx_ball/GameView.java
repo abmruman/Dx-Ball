@@ -23,8 +23,8 @@ public class GameView extends View{
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Screen.setCanvas(canvas);
-        if (!Game.dxBall.started) {
-            Game.dxBall.started = true;
+        if (!Game.dxBall.isStarted) {
+            Game.dxBall.isStarted = true;
             Game.dxBall.newGame();
             if (Screen.getHeight() > Screen.getWidth())
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
