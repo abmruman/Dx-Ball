@@ -16,8 +16,8 @@ public class Paddle {
 
     public Paddle() {
         paint = Screen.newPaint(Color.WHITE, Paint.Style.FILL);
-        heightRatio = 400 / 1600f;
-        widthRatio = 50 / 1200f;
+        widthRatio = 480 / 1920f;
+        heightRatio = 50 / 1200f;
         radiusRatio = 25 / 1200f;
     }
 
@@ -48,8 +48,8 @@ public class Paddle {
     }
 
     public void setDimension() {
-        height = (int) (widthRatio * Screen.getHeight());
-        width = (int) (heightRatio * Screen.getWidth());
+        width = (int) (widthRatio * Screen.getWidth());
+        height = (int) (heightRatio * Screen.getHeight());
         radius = (int) (radiusRatio * Screen.getHeight());
     }
 
