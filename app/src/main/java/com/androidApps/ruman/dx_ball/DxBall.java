@@ -32,10 +32,13 @@ public class DxBall {
         life = 3;
         score = 0;
         Level.stage = 1;
+
         Brick.resetCount();
         Level.bricks.clear();
+
         setMeasurements();
         setInitialPosition();
+
         Level.makeStage();
     }
 
@@ -43,6 +46,7 @@ public class DxBall {
         int x = Screen.getWidth(), y = Screen.getHeight();
         paddle.setInitialPosition(x /= 2, y -= paddle.getHeight());
         ball.setInitialPosition(x, y - paddle.getHeight() - ball.getRadius());
+        ball.setInitialSpeed();
     }
 
     private void setMeasurements() {
@@ -135,7 +139,7 @@ public class DxBall {
                     }
                 } else {
                     if (!ball.isOnAir) {
-                        ball.bounce(3, -10);
+                        ball.bounce(ball.getDx(), ball.getDy());
                         ball.isOnAir = true;
                     }
                 }

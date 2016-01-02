@@ -19,7 +19,7 @@ public class Ball {
         isOnAir = false;
         fallen = false;
         paint = Screen.newPaint(Color.WHITE, Paint.Style.FILL);
-        radiusRatio = 25 / 1200f;
+        radiusRatio = 30 / 1200f;
     }
 
     public void draw() {
@@ -54,6 +54,10 @@ public class Ball {
         radius = (int) (radiusRatio * ((Screen.getWidth() < Screen.getHeight()) ? Screen.getWidth() : Screen.getHeight()));
     }
 
+    public void setInitialSpeed() {
+        dx = (int) (4 / 1920f * Screen.getWidth());
+        dy = (int) (-10 / 1280f * Screen.getHeight());
+    }
     public void setInitialPosition(int x, int y) {
         this.x = x;
         this.y = y;
