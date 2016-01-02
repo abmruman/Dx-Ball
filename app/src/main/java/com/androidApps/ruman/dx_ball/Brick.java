@@ -61,7 +61,7 @@ public class Brick {
         height = (int) (heightRatio * Screen.getHeight());
         width = (int) (widthRatio * Screen.getWidth());
 
-        if (height > width) {
+        if (height > (int) (width * 4 / 5f)) {
             height = (int) (width * 4 / 5f);
         }
     }

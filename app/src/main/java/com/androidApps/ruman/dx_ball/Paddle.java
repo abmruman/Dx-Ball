@@ -16,7 +16,7 @@ public class Paddle {
 
     public Paddle() {
         paint = Screen.newPaint(Color.WHITE, Paint.Style.FILL);
-        widthRatio = 480 / 1920f;
+        widthRatio = 550 / 1920f;
         heightRatio = 50 / 1200f;
         radiusRatio = 25 / 1200f;
     }
