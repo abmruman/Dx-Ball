@@ -131,10 +131,7 @@ public class DxBall {
                         levelUp();
                         Screen.isTappedOnText = false;
                     }
-                } else if (ball.fallen) {
-                    //setInitialPosition();
                 } else {
-
                     if (!ball.isOnAir) {
                         ball.bounce(3, -10);
                         ball.isOnAir = true;
