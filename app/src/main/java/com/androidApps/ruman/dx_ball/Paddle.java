@@ -116,4 +116,17 @@ public class Paddle {
         dist = (float) Math.ceil(dist);
         return (int) ((this.x > x) ? -dist : dist);
     }
+
+    public boolean hadCollision(Ball ball) {
+        float left = getLeftSide() - ball.getRadius(),
+                top = getTop() - ball.getRadius(),
+                right = getRightSide() + ball.getRadius(),
+                bottom = getBottom() - getHeight() / 2;
+
+        return ball.getX() > left
+                && ball.getX() < right
+                && ball.getY() > top
+                && ball.getY() < bottom;
+
+    }
 }

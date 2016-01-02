@@ -53,32 +53,31 @@ public class DxBall {
     public void draw() {
         if (life == 0) {
             newGame();
-        }
-        if (Brick.getCount() == 0) {
+        } else if (Brick.getCount() == 0) {
             levelUp();
-        }
-        if (ball.fallen) {
+        } else if (ball.fallen) {
             ball.fallen = false;
             ball.isOnAir = false;
             life--;
             setInitialPosition();
-        }
-        paddle.draw();
-        ball.draw();
-        Level.draw();
-        if (ball.isOnAir) {
-            if (hadCollisionWithPaddle()) {
-                ball.bounce(paddle.getCollisionDirection(ball.getX()), -Math.abs(ball.getDy()));
+        } else {
+            paddle.draw();
+            ball.draw();
+            Level.draw();
+            if (ball.isOnAir) {
+                if (paddle.hadCollision(ball)) {
+                    ball.bounce(paddle.getCollisionDirection(ball.getX()), -Math.abs(ball.getDy()));
+                }
+
+                handleCollisionWithBricks();
             }
+            Paint paint = Screen.newPaint(Color.WHITE, Paint.Style.STROKE);
+            paint.setTextSize(50);
 
-            handleCollisionWithBricks();
+            Screen.getCanvas().drawText("Stage : " + Level.stage, Screen.getWidth() - 220, 100, paint);
+            Screen.getCanvas().drawText("Score: " + score, 50, 100, paint);
+            Screen.getCanvas().drawText("Life : " + life, 50, 150, paint);
         }
-        Paint paint = Screen.newPaint(Color.WHITE, Paint.Style.STROKE);
-        paint.setTextSize(50);
-
-        Screen.getCanvas().drawText("Stage : " + Level.stage, Screen.getWidth() - 220, 100, paint);
-        Screen.getCanvas().drawText("Score: " + score, 50, 100, paint);
-        Screen.getCanvas().drawText("Life : " + life, 50, 150, paint);
     }
 
     private void levelUp() {
@@ -87,18 +86,6 @@ public class DxBall {
         setMeasurements();
         setInitialPosition();
         Level.makeStage();
-    }
-
-    private boolean hadCollisionWithPaddle() {
-        float left = paddle.getLeftSide() - ball.getRadius(),
-                top = paddle.getTop() - ball.getRadius(),
-                right = paddle.getRightSide() + ball.getRadius(),
-                bottom = paddle.getBottom() - paddle.getHeight() / 2;
-
-        return ball.getX() > left
-                && ball.getX() < right
-                && ball.getY() > top
-                && ball.getY() < bottom;
     }
 
     private void handleCollisionWithBricks() {
