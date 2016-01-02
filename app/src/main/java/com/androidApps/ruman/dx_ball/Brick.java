@@ -18,8 +18,8 @@ public class Brick {
     public Brick() {
         paint = Screen.newPaint(Color.GRAY, Paint.Style.FILL);
         paint2 = Screen.newPaint(Color.WHITE, Paint.Style.FILL);
-        heightRatio = 200 / 1600f;
-        widthRatio = 100 / 1200f;
+        widthRatio = 240 / 1920f;
+        heightRatio = 100 / 1200f;
 
         Brick.count++;
         isBroken = false;
@@ -49,7 +49,6 @@ public class Brick {
     public void draw() {
         //calculateMove();
         Screen.getCanvas().drawRect(left, top, right, bottom, paint);
-
         Screen.getCanvas().drawRect(left + shade, top + shade, right - shade, bottom - shade, paint2);
 
         Screen.getCanvas().drawLine(left, top, left + shade, top + shade, paint2);
@@ -59,8 +58,12 @@ public class Brick {
     }
 
     public void setDimension() {
-        height = (int) (widthRatio * Screen.getHeight());
-        width = (int) (heightRatio * Screen.getWidth());
+        height = (int) (heightRatio * Screen.getHeight());
+        width = (int) (widthRatio * Screen.getWidth());
+
+        if (height > width) {
+            height = (int) (width * 4 / 5f);
+        }
     }
 
     public void setInitialPosition(float x, float y) {
@@ -125,6 +128,7 @@ public class Brick {
                 top = getTop() - ball.getRadius(),
                 right = getRight() + ball.getRadius(),
                 bottom = getBottom() + ball.getRadius();
+
 //        Screen.getCanvas().drawRect(left, getTop(), getLeft(), getBottom(), Screen.newPaint(Color.RED, Paint.Style.STROKE));
 //        Screen.getCanvas().drawRect(getLeft(), top, getRight(), getTop(), Screen.newPaint(Color.RED, Paint.Style.STROKE));
 //        Screen.getCanvas().drawRect(getRight(), getTop(), right, getBottom(), Screen.newPaint(Color.RED, Paint.Style.STROKE));
@@ -134,6 +138,7 @@ public class Brick {
                 && ball.getY() > getTop() - ball.getRadius() / 2
                 && ball.getX() < getLeft()
                 && ball.getY() < getBottom() + ball.getRadius() / 2) {
+
             ball.bounce(-Math.abs(ball.getDx()), ball.getDy());
             destroy();
             reward();
@@ -141,6 +146,7 @@ public class Brick {
                 && ball.getY() > top
                 && ball.getX() < getRight()
                 && ball.getY() < getTop()) {
+
             ball.bounce(ball.getDx(), -Math.abs(ball.getDy()));
             destroy();
             reward();
@@ -148,6 +154,7 @@ public class Brick {
                 && ball.getY() > getTop() - ball.getRadius() / 2
                 && ball.getX() < right
                 && ball.getY() < getBottom() + ball.getRadius() / 2) {
+
             ball.bounce(Math.abs(ball.getDx()), ball.getDy());
             destroy();
             reward();
@@ -155,25 +162,11 @@ public class Brick {
                 && ball.getY() > getBottom()
                 && ball.getX() < getRight()
                 && ball.getY() < bottom) {
+
             ball.bounce(ball.getDx(), Math.abs(ball.getDy()));
             destroy();
             reward();
         }
-
-        /*if (ball.getX() > left
-                && ball.getX() < right
-                && ball.getY() > top
-                && ball.getY() < bottom) {
-
-            if (ball.getX() > getLeft() && ball.getX() < getRight()) {
-                ball.bounce(ball.getDx(), -ball.getDy());
-            } else if (ball.getX() < getLeft() || ball.getX() > getRight()) {
-                ball.bounce(-ball.getDx(), ball.getDy());
-            }
-            destroy();
-            Game.dxBall.score += 5;
-        }*/
-
     }
 
     private void reward() {
@@ -184,5 +177,14 @@ public class Brick {
         isBroken = true;
         if (Brick.count > 0)
             Brick.count--;
+    }
+
+
+    public float getHeightWithSpace() {
+        return height + Brick.space;
+    }
+
+    public float getWidthWithSpace() {
+        return width + Brick.space;
     }
 }

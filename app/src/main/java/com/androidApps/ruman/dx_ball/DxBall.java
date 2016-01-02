@@ -52,9 +52,11 @@ public class DxBall {
 
     public void draw() {
         int bannerTextSize = (int) (250 / 1920f * Screen.getWidth());
+
         Paint paint = Screen.newPaint(Color.WHITE, Paint.Style.STROKE);
         paint.setTextSize(bannerTextSize);
         paint.setTextAlign(Paint.Align.CENTER);
+
         if (life == 0) {
             Screen.getCanvas().drawText("Game Over!", Screen.getWidth() / 2, Screen.getHeight() / 2, paint);
 //            newGame();
