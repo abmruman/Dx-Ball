@@ -6,24 +6,23 @@ import java.util.ArrayList;
  * @author A B M Ruman
  **/
 public class Level {
-    public static final int maxStage = 2;
+    public static final int maxStage = 6;
     public static ArrayList<Brick> bricks;
     public static int stage;
 
-    public static void setInitialPosition() {
-        if (bricks.isEmpty()) {
-            for (int i = 0; i < 9; i++) {
-                bricks.add(new Brick());
-            }
-        }
-
-        for (Brick brick : bricks) {
-            brick.setDimension();
-        }
-
+    public static void makeStage() {
         float m = 100, n = 100;
         switch (stage) {
             case 1:
+                if (bricks.isEmpty()) {
+                    for (int i = 0; i < 9; i++) {
+                        bricks.add(new Brick());
+                    }
+                }
+                for (Brick brick : bricks) {
+                    brick.setDimension();
+                }
+
                 for (int i = 0; i < bricks.size(); i++) {
                     Brick brick = bricks.get(i);
                     if (i == 0) {
@@ -44,6 +43,14 @@ public class Level {
                 }
                 break;
             case 2:
+                if (bricks.isEmpty()) {
+                    for (int i = 0; i < 9; i++) {
+                        bricks.add(new Brick());
+                    }
+                }
+                for (Brick brick : bricks) {
+                    brick.setDimension();
+                }
                 for (int i = 0; i < bricks.size(); i++) {
                     Brick brick = bricks.get(i);
                     if (i == 0) {
@@ -60,6 +67,191 @@ public class Level {
                     }
                     brick.setInitialPosition(m, n);
                     m = brick.getRight() + brick.getWidth() / 2 + Brick.getSpace();
+                }
+                break;
+            case 3:
+                if (bricks.isEmpty()) {
+                    for (int i = 0; i < 8; i++) {
+                        bricks.add(new Brick());
+                    }
+                }
+                for (Brick brick : bricks) {
+                    brick.setDimension();
+                }
+                for (int i = 0, k = 0; i < bricks.size(); k++) {
+                    Brick brick = bricks.get(i);
+                    for (int j = 0; j < 5; j++) {
+                        if (i == 0) {
+                            m = 500 / 1900f * Screen.getWidth();
+                            n = 275 / 1200f * Screen.getHeight();
+                        }
+
+                        if (k % 2 == 0) {
+                            if (j % 2 == 0) {
+                                brick.setInitialPosition(m, n);
+                                ++i;
+                                if (i == bricks.size())
+                                    break;
+                                brick = bricks.get(i);
+                            }
+                        } else {
+                            if (j % 2 != 0) {
+                                brick.setInitialPosition(m, n);
+                                ++i;
+                                if (i == bricks.size())
+                                    break;
+                                brick = bricks.get(i);
+                            }
+                        }
+                        //m = brick.getRight() + brick.getWidth() / 2 + Brick.getSpace();
+                        m += brick.getWidth() + Brick.getSpace();
+                    }
+                    n += brick.getHeight() + Brick.getSpace();
+                    m = 500 / 1900f * Screen.getWidth();
+                }
+                break;
+            case 4:
+                if (bricks.isEmpty()) {
+                    for (int i = 0; i < 10; i++) {
+                        bricks.add(new Brick());
+                    }
+                }
+                for (Brick brick : bricks) {
+                    brick.setDimension();
+                }
+                for (int i = 0, k = 0; i < bricks.size(); k++) {
+                    Brick brick = bricks.get(i);
+                    for (int j = 0; j < 5; j++) {
+                        if (i == 0) {
+                            m = 500 / 1900f * Screen.getWidth() + brick.getWidth() + Brick.getSpace();
+                            n = 275 / 1200f * Screen.getHeight();
+                        }
+
+                        if (k % 2 == 0) {
+                            if (j % 2 != 0) {
+                                brick.setInitialPosition(m, n);
+                                ++i;
+                                if (i == bricks.size())
+                                    break;
+                                brick = bricks.get(i);
+                            }
+                        } else {
+                            if (j % 2 == 0) {
+                                brick.setInitialPosition(m, n);
+                                ++i;
+                                if (i == bricks.size())
+                                    break;
+                                brick = bricks.get(i);
+                            }
+                        }
+                        //m = brick.getRight() + brick.getWidth() / 2 + Brick.getSpace();
+                        m += brick.getWidth() + Brick.getSpace();
+                    }
+                    n += brick.getHeight() + Brick.getSpace();
+                    m = 500 / 1900f * Screen.getWidth();
+                }
+                break;
+            case 5:
+                if (bricks.isEmpty()) {
+                    for (int i = 0; i < 7; i++) {
+                        bricks.add(new Brick());
+                    }
+                }
+                for (Brick brick : bricks) {
+                    brick.setDimension();
+                }
+                for (int i = 0, k = 0; i < bricks.size(); k++) {
+                    Brick brick = bricks.get(i);
+                    for (int j = 0; j < 5; j++) {
+                        if (i == 0) {
+                            m = 500 / 1900f * Screen.getWidth() + brick.getWidth() + Brick.getSpace();
+                            n = 275 / 1200f * Screen.getHeight();
+                        }
+                        if (k % 2 == 0) {
+                            if (j % 2 != 0) {
+                                brick.setInitialPosition(m, n);
+                                ++i;
+                                if (i == bricks.size())
+                                    break;
+                                brick = bricks.get(i);
+                            }
+                        } else {
+                            if (j % 2 == 0) {
+                                brick.setInitialPosition(m, n);
+                                ++i;
+                                if (i == bricks.size())
+                                    break;
+                                brick = bricks.get(i);
+                            }
+                        }
+                        //m = brick.getRight() + brick.getWidth() / 2 + Brick.getSpace();
+                        m += brick.getWidth() + Brick.getSpace();
+                    }
+                    n += brick.getHeight() + Brick.getSpace();
+                    m = 500 / 1900f * Screen.getWidth();
+                }
+                break;
+            case 6:
+                if (bricks.isEmpty()) {
+                    for (int i = 0; i < 13; i++) {
+                        bricks.add(new Brick());
+                    }
+                }
+                for (Brick brick : bricks) {
+                    brick.setDimension();
+                }
+                for (int i = 0, k = 0; i < 7; k++) {
+                    Brick brick = bricks.get(i);
+                    for (int j = 0; j < 5; j++) {
+                        if (i == 0) {
+                            m = 500 / 1900f * Screen.getWidth() + brick.getWidth() + Brick.getSpace();
+                            n = 275 / 1200f * Screen.getHeight();
+                        }
+                        if (k % 2 == 0) {
+                            if (j % 2 != 0) {
+                                brick.setInitialPosition(m, n);
+                                ++i;
+                                if (i == bricks.size())
+                                    break;
+                                brick = bricks.get(i);
+                            }
+                        } else {
+                            if (j % 2 == 0) {
+                                brick.setInitialPosition(m, n);
+                                ++i;
+                                if (i == bricks.size())
+                                    break;
+                                brick = bricks.get(i);
+                            }
+                        }
+                        //m = brick.getRight() + brick.getWidth() / 2 + Brick.getSpace();
+                        m += brick.getWidth() + Brick.getSpace();
+                    }
+                    n += brick.getHeight() + Brick.getSpace();
+                    m = 500 / 1900f * Screen.getWidth();
+                }
+                int i = 7;
+                Brick brick = bricks.get(i++);
+                m += (brick.getWidth() + Brick.getSpace()) * 2;
+                n += brick.getHeight() + Brick.getSpace();
+                brick.setInitialPosition(m, n);
+
+                brick = bricks.get(i++);
+                m = 500 / 1900f * Screen.getWidth();
+                n += brick.getHeight() + Brick.getSpace();
+                brick.setInitialPosition(m, n);
+
+                brick = bricks.get(i++);
+                m += (brick.getWidth() + Brick.getSpace()) * 4;
+                brick.setInitialPosition(m, n);
+
+                m = 500 / 1900f * Screen.getWidth();
+                n += brick.getHeight() + Brick.getSpace();
+
+                for (; i < 13; i++) {
+                    brick = bricks.get(i);
+                    m += brick.getWidth() + Brick.getSpace();
+                    brick.setInitialPosition(m, n);
                 }
                 break;
         }

@@ -36,13 +36,13 @@ public class DxBall {
         Level.bricks.clear();
         setMeasurements();
         setInitialPosition();
+        Level.makeStage();
     }
 
     private void setInitialPosition() {
         int x = Screen.getWidth(), y = Screen.getHeight();
         paddle.setInitialPosition(x /= 2, y -= paddle.getHeight());
         ball.setInitialPosition(x, y - paddle.getHeight() - ball.getRadius());
-        Level.setInitialPosition();
     }
 
     private void setMeasurements() {
@@ -86,6 +86,7 @@ public class DxBall {
         ball.isOnAir = false;
         setMeasurements();
         setInitialPosition();
+        Level.makeStage();
     }
 
     private boolean hadCollisionWithPaddle() {
