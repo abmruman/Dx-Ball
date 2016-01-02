@@ -131,9 +131,9 @@ public class Brick {
 //        Screen.getCanvas().drawRect(getLeft(), getBottom(), getRight(), bottom, Screen.newPaint(Color.RED, Paint.Style.STROKE));
 
         if (ball.getX() > left
-                && ball.getY() > getTop()
+                && ball.getY() > getTop() - ball.getRadius() / 2
                 && ball.getX() < getLeft()
-                && ball.getY() < getBottom()) {
+                && ball.getY() < getBottom() + ball.getRadius() / 2) {
             ball.bounce(-Math.abs(ball.getDx()), ball.getDy());
             destroy();
             reward();
@@ -145,9 +145,9 @@ public class Brick {
             destroy();
             reward();
         } else if (ball.getX() > getRight()
-                && ball.getY() > getTop()
+                && ball.getY() > getTop() - ball.getRadius() / 2
                 && ball.getX() < right
-                && ball.getY() < getBottom()) {
+                && ball.getY() < getBottom() + ball.getRadius() / 2) {
             ball.bounce(Math.abs(ball.getDx()), ball.getDy());
             destroy();
             reward();
