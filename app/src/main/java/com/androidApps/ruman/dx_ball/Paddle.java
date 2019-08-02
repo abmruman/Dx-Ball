@@ -16,7 +16,7 @@ public class Paddle {
 
     public Paddle() {
         paint = Screen.newPaint(Color.WHITE, Paint.Style.FILL);
-        widthRatio = 480 / 1920f;
+        widthRatio = 550 / 1920f;
         heightRatio = 50 / 1200f;
         radiusRatio = 25 / 1200f;
     }
@@ -115,5 +115,18 @@ public class Paddle {
         float dist = Math.abs(this.x - x) / 15;
         dist = (float) Math.ceil(dist);
         return (int) ((this.x > x) ? -dist : dist);
+    }
+
+    public boolean hadCollision(Ball ball) {
+        float left = getLeftSide() - ball.getRadius(),
+                top = getTop() - ball.getRadius(),
+                right = getRightSide() + ball.getRadius(),
+                bottom = getBottom() - getHeight() / 2;
+
+        return ball.getX() > left
+                && ball.getX() < right
+                && ball.getY() > top
+                && ball.getY() < bottom;
+
     }
 }
